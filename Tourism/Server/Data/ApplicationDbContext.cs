@@ -17,5 +17,11 @@ namespace Tourism.Server.Data
             IOptions<OperationalStoreOptions> operationalStoreOptions) : base(options, operationalStoreOptions)
         {
         }
+
+
+        public DbSet<ApplicationUser> ApplicationUsers { get; set; }
+        public DbSet<Forum> Forums { get; set; }
+        public DbSet<Article> Articles { get; set; }
+        public DbSet<ArticleReply> ArticleReplies { get; set; }
     }
 }

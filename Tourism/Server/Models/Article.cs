@@ -5,14 +5,16 @@ using System.Threading.Tasks;
 
 namespace Tourism.Server.Models
 {
-    public class Forum
+    public class Article
     {
         public int Id { get; set; }
         public string Title { get; set; }
-        public string Description { get; set; }
+        public string Content { get; set; }
         public DateTime Created { get; set; }
-        public string ImageUrl { get; set; }
 
-        public virtual IEnumerable<Article> Articles { get; set; }
+        public virtual ApplicationUser User { get; set; }
+        public virtual Forum Forum { get; set; }
+
+        public virtual IEnumerable<ArticleReply> Replies { get; set; }
     }
 }
