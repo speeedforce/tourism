@@ -7,28 +7,34 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System.Diagnostics;
 using System.Linq;
 using Tourism.Server.Data;
 using Tourism.Server.Models;
+using Tourism.Server.Services;
 
 namespace Tourism.Server
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        private readonly IWebHostEnvironment _env;
+        public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
             Configuration = configuration;
+            _env = env;
+          
         }
 
         public IConfiguration Configuration { get; }
+      
 
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            var connectionString = Configuration.GetConnectionString("DbConnection");
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseNpgsql(
-                    Configuration.GetConnectionString("DefaultConnection")));
+                options.UseNpgsql(connectionString));
 
             services.AddDatabaseDeveloperPageExceptionFilter();
 
@@ -38,10 +44,16 @@ namespace Tourism.Server
             services.AddIdentityServer()
                 .AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
 
+            services.AddScoped<IArticleService, ArticleService>();
+            services.AddScoped<IForumService, ForumService>();
+
             services.AddAuthentication()
                 .AddIdentityServerJwt();
 
-            services.AddControllersWithViews();
+
+            services.AddControllersWithViews().AddNewtonsoftJson(options => 
+                        options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+                            );
             services.AddRazorPages();
         }
 
@@ -60,6 +72,8 @@ namespace Tourism.Server
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
+            app.UseStatusCodePages();
 
             app.UseHttpsRedirection();
             app.UseBlazorFrameworkFiles();

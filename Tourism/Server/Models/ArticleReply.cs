@@ -1,5 +1,5 @@
 ﻿using System;
-
+using System.Text.Json.Serialization;
 
 namespace Tourism.Server.Models
 {
@@ -10,6 +10,8 @@ namespace Tourism.Server.Models
         public DateTime Created { get; set; }
 
         public virtual ApplicationUser User { get; set; }
+
+        [JsonIgnore]
         public virtual Article Article { get; set; }
     }
 }
