@@ -17,7 +17,6 @@ namespace Tourism.Server.Models
         public string Description { get; set; }
         public DateTime Created { get; set; }
         public string ImageUrl { get; set; }
-
         public virtual IEnumerable<Article> Articles { get; set; }
     }
 }

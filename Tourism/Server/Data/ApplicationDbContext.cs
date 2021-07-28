@@ -23,13 +23,5 @@ namespace Tourism.Server.Data
         public DbSet<Forum> Forums { get; set; }
         public DbSet<Article> Articles { get; set; }
         public DbSet<ArticleReply> ArticleReplies { get; set; }
-
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<Student>()
-            .HasOptional<Standard>(s => s.Standard)
-            .WithMany()
-            .WillCascadeOnDelete(false);
-        }
     }
 }
