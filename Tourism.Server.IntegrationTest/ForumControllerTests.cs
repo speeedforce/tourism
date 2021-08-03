@@ -1,58 +1,74 @@
 ﻿using Microsoft.AspNetCore.Mvc.Testing;
 using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.Net;
 using System.Net.Http;
-using System.Text.Json;
+using System.Net.Http.Json;
 using System.Threading.Tasks;
-using Tourism.Server.Data;
-using Tourism.Server.IntegrationTests.Models;
+using Tourism.Server.IntegrationTests.TestModels;
+using Tourism.Server.IntegrationTests.Models.Forum;
 using Xunit;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Tourism.Server.IntegrationTests
 {
-    public class ForumControllerTests : IClassFixture<WebApplicationFactory<Startup>>
+    public class ForumControllerTests : IClassFixture<CustomWebApplicationFactory<Startup>>
     {
         private readonly HttpClient _client;
 
-        public ForumControllerTests(WebApplicationFactory<Startup> factory)
+        public ForumControllerTests(CustomWebApplicationFactory<Startup> factory)
         {
-            _client = factory.CreateDefaultClient();
+            factory.ClientOptions.BaseAddress = new Uri($"{Config.URI}/forum");
+            _client = factory.CreateClient();
         }
 
-        [Fact]
-        public async Task GetAll_Returns200()
-        {
-            var response = await _client.GetAsync("/api/forum");
-
-            response.EnsureSuccessStatusCode();
-        }
 
         [Fact]
-        public async Task GetAll_ReturnsMediaType()
-        {
-            var response = await _client.GetAsync("/api/forum");
+        public async Task GetAll_ReturnsExpectedResponse() {
 
-            Assert.Equal("application/json", response.Content.Headers.ContentType.MediaType);
-        }
-
-        [Fact]
-        public async Task GetAll_ReturnsContent()
-        {
-            var response = await _client.GetAsync("/api/forum");
-
-            Assert.NotNull(response.Content);
-            Assert.True(response.Content.Headers.ContentLength > 0);
-        }
-
-        [Fact]
-        public async Task GetAll_ReturnsExpectedJson()
-        {
-            var responseStream = await _client.GetStreamAsync("/api/forum");
-            var model = await JsonSerializer.DeserializeAsync<ExpectedForumsModel>(responseStream,
-                new JsonSerializerOptions { PropertyNameCaseInsensitive = true }) ;
+            var model = await _client.GetFromJsonAsync<ExpectedForumsModel>("");
 
             Assert.NotNull(model?.items);
+        }
+
+        [Fact]
+        public async Task Post_CreateModelValidation_ReturnsBadRequest()
+        {
+            var forumCreateModel = GetValidForumCreateViewModel().CloneWith(f => f.Title = null);
+
+            var response = await _client.PostAsJsonAsync("", forumCreateModel);
+
+            Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
+        }
+
+        [Fact]
+        public async Task Post_CreateModelValidation_ReturnsExpectedProblemDetails()
+        {
+            var forumCreateModel = GetValidForumCreateViewModel().CloneWith(f => f.Title = null);
+
+            var response = await _client.PostAsJsonAsync("", forumCreateModel);
+
+            var problemsDetails = await response.Content.ReadFromJsonAsync<ValidationProblemDetails>();
+
+
+            Assert.Collection(problemsDetails.Errors, kvp =>
+            {
+                Assert.Equal("Name", kvp.Key);
+                var error = Assert.Single(kvp.Value);
+                Assert.Equal("Something", error);
+            });
+        }
+
+
+
+        private static TestForumCreateViewModel GetValidForumCreateViewModel()
+        {
+            return new TestForumCreateViewModel
+            {
+                Title = "Test Stas",
+                Description = "Valid Description",
+                Created = DateTime.UtcNow,
+                ImageUrl = ""
+            };
         }
     }
 }
