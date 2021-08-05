@@ -1,0 +1,19 @@
+﻿
+@using Tourism.Shared.ViewModels.Article
+
+<div class="forum-container">
+    <div class="forum-articles">
+        @foreach (var item in Articles)
+        {
+            <Article ArticleModel="item"></Article>
+        }
+    </div>
+</div>
+
+
+@code {
+
+    [Parameter]
+    public List<ArticleViewModel> Articles { get; set; };
+
+}
