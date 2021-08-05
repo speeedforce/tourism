@@ -1,0 +1,15 @@
+﻿.login-container {
+    display: flex;
+    width: 100%;
+    justify-content: center!important;
+}
+
+
+.login-form {
+    display: flex;
+    padding: 15px;
+    margin: 10px;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
