@@ -2,10 +2,12 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Tourism.Server.Data;
 using Tourism.Server.Models;
 using Tourism.Shared.Error;
+using Tourism.Shared.ViewModels.Article;
 using Tourism.Shared.ViewModels.Forum;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -27,13 +29,18 @@ namespace Tourism.Server.Controllers
 
 
         // GET: api/<ForumController>
+
+        // Get default forum
         [HttpGet]
         public IActionResult Get()
         {
             try
             {
-                var items = _forumService.GetAll();
-                return Ok(new { items = items });
+                var item = _forumService.GetById();
+
+                var forumVM = BuildForumViewModel(item);
+
+                return Ok(new { item = item });
             }
             catch (Exception)
             {
@@ -41,31 +48,12 @@ namespace Tourism.Server.Controllers
             }
 
             return NoContent();
-        }
-
-        // GET api/<ForumController>/5
-        [HttpGet("{id}")]
-        public IActionResult Get(int id)
-        {
-            try
-            {
-                var item = _forumService.GetById(id);
-                if (item == null)
-                    return NotFound(
-                        new ErrorViewModel { Message = $"Forum doesn't find with Id = {id}" });
-                else
-                    return Ok(new { item = item });
-            }
-            catch(Exception)
-            {
-                //TODO
-            }
-
-            return NoContent();
-        }
+        } 
 
         // POST api/<ForumController>
         [HttpPost]
+        
+        // TODO only for admin
         public async Task<IActionResult> Post([FromBody] ForumCreateViewMode model)
         {
             var forum = BuildForum(model);
@@ -84,14 +72,14 @@ namespace Tourism.Server.Controllers
                     Message = ex.InnerException.Message
                 });
             }
-
-            return NoContent();
         }
 
        
 
         // PUT api/<ForumController>/5
         [HttpPut("{id}")]
+
+        // TODO Only for admin
         public async Task<IActionResult> Put(int id, [FromBody] Forum forum)
         {
             if (id != forum.Id)
@@ -110,28 +98,6 @@ namespace Tourism.Server.Controllers
             return NoContent();
         }
 
-        // DELETE api/<ForumController>/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id)
-        {
-            try
-            {
-
-                var item = _forumService.GetById(id);
-
-                if (item == null) return BadRequest(new ErrorViewModel() { Message = "Item doesn't exist or alread has been deleted." });
-                else  await _forumService.Delete(item);
-                return Ok();
-                
-            }
-            
-            catch (DbUpdateConcurrencyException)
-            {
-
-            }
-
-            return NoContent();
-        }
 
         #region ViewModels
 
@@ -145,6 +111,48 @@ namespace Tourism.Server.Controllers
                 ImageUrl = model.ImageUrl == null ? "" : model.ImageUrl            
             };
         }
+
+
+        private ForumViewModel BuildForumViewModel(Forum forum)
+        {
+            var forumViewModel = new ForumViewModel
+            {
+                Id = forum.Id,
+                Title = forum.Title,
+                Description = forum.Description,
+                ImageUrl = forum.ImageUrl
+            };
+
+            List<ArticleViewModel> articles = new List<ArticleViewModel>();
+
+            foreach(var a in forum.Articles)
+            {
+                var articleVM = BuildArticleViewModel(a);
+
+                articles.Add(articleVM);
+            }
+
+            forumViewModel.Articles = articles;
+
+            return forumViewModel;
+        }
+
+        private static ArticleViewModel BuildArticleViewModel(Article a)
+        {
+            return new ArticleViewModel
+            {
+                Author = a.User.UserName,
+                Id = a.Id,
+                Title = a.Title,
+                Content = a.Content,
+                CountReplies = (a.Replies as List<ArticleReply>).Count,
+                Created = a.Created,
+                ForumId = a.ForumId,
+                ImageUrl = a.ImageUrl
+            };
+        }
+
+
 
         #endregion
     }

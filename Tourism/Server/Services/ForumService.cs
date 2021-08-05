@@ -23,12 +23,6 @@ namespace Tourism.Server.Services
             return forum;
         }
 
-        public async Task Delete(Forum item)
-        {
-            _context.Remove(item);
-            await _context.SaveChangesAsync();
-        }
-
         public async Task<Forum> Edit(Forum forum)
         {
             _context.Entry(forum).State = EntityState.Modified;
@@ -37,9 +31,11 @@ namespace Tourism.Server.Services
             return forum;
         }
 
-        public IEnumerable<Forum> GetAll() => _context.Forums.ToList();
-       
-
-        public Forum GetById(int id) => _context.Forums.FirstOrDefault(item => item.Id == id);
+        public Forum GetById(int id = 1)
+        {
+            return _context.Forums
+                            .Include(item => item.Articles)
+                            .FirstOrDefault(item => item.Id == id);
+        }
     }
 }
