@@ -13,7 +13,7 @@ namespace Tourism.Server.IntegrationTests
 
         static Config()
         {
-            DB_STAGING_STRING = "Host=localhost;Username=postgres;Password=stas;Database=tourism.staging";
+            DB_STAGING_STRING = "Host=localhost;Username=postgres;Password=stas;Database=tourism.staging2";
             URI = "http://localhost/api";
         }
     }

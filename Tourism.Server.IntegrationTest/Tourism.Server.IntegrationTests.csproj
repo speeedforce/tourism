@@ -20,8 +20,6 @@
     </PackageReference>
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Tourism\Server\Tourism.Server.csproj" />
-  </ItemGroup>
+  
 
 </Project>
