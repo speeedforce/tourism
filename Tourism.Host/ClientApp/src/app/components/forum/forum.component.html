@@ -1,0 +1,9 @@
+<div class="forum-container">
+  <div class="forum-header">
+  </div>
+  <div class="forum-articles" *ngIf="">
+    <div  *ngFor="let item of (forum$ | async).articles">
+        <app-article [article]='item'></app-article>
+    </div>
+  </div>
+</div>>
