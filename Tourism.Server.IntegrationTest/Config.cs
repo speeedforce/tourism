@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Tourism.Server.IntegrationTests
+namespace Tourism.WebApp.IntegrationTests
 {
     public static class Config
     {

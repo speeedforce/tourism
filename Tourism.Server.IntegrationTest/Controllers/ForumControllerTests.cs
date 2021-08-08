@@ -6,12 +6,12 @@ using System.Net.Http.Json;
 using System.Threading.Tasks;
 using Xunit;
 using Microsoft.AspNetCore.Mvc;
-
-using Tourism.WebApp.ViewModels;
 using Tourism.Server.IntegrationTests.Models;
 using Tourism.WebApp;
+using Tourism.WebApp.ViewModels;
+using Tourism.Server.IntegrationTests;
 
-namespace Tourism.Server.IntegrationTests
+namespace Tourism.WebApp.IntegrationTests
 {
     public class ForumControllerTests : IClassFixture<CustomWebApplicationFactory<Startup>>
     {
@@ -24,53 +24,20 @@ namespace Tourism.Server.IntegrationTests
         }
 
 
+
+        [Fact]
+        public async Task GetAll_ReturnsExpected200()
+        {
+            var response = await _client.GetAsync("");
+
+            response.EnsureSuccessStatusCode();
+        }
+
         [Fact]
         public async Task GetAll_ReturnsExpectedResponse() {
 
             var model = await _client.GetFromJsonAsync<ForumViewModel>("");
-
             Assert.NotNull(model);
-        }
-
-        [Fact]
-        public async Task Post_CreateModelValidation_ReturnsBadRequest()
-        {
-            var forumCreateModel = GetValidForumCreateViewModel().CloneWith(f => f.Title = null);
-
-            var response = await _client.PostAsJsonAsync("", forumCreateModel);
-
-            Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
-        }
-
-        [Fact]
-        public async Task Post_CreateModelValidation_ReturnsExpectedProblemDetails()
-        {
-            var forumCreateModel = GetValidForumCreateViewModel().CloneWith(f => f.Title = null);
-
-            var response = await _client.PostAsJsonAsync("", forumCreateModel);
-
-            var problemsDetails = await response.Content.ReadFromJsonAsync<ValidationProblemDetails>();
-
-
-            Assert.Collection(problemsDetails.Errors, kvp =>
-            {
-                Assert.Equal("Name", kvp.Key);
-                var error = Assert.Single(kvp.Value);
-                Assert.Equal("Something", error);
-            });
-        }
-
-
-
-        private static TestForumInputModel GetValidForumCreateViewModel()
-        {
-            return new TestForumInputModel
-            {
-                Title = "Test Stas",
-                Description = "Valid Description",
-                Created = DateTime.UtcNow,
-                ImageUrl = ""
-            };
         }
     }
 }

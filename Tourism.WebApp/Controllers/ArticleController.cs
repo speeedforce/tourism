@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -34,6 +35,9 @@ namespace Tourism.WebApp.Controllers
         {
             try
             {
+                var userId = _userManager.GetUserId(User);
+                var user = _userManager.FindByIdAsync(userId).Result;
+
                 return Ok (new
                 {
                     items = _articleService.GetAll()
@@ -72,6 +76,7 @@ namespace Tourism.WebApp.Controllers
 
         // POST api/<ArticleController>
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> Post([FromBody] ArticleInputModel model)
         {
             try
