@@ -35,5 +35,6 @@ export interface IArticleInput {
     content: string;
     created: string;
     imageUrl: string;
+    author: string;
 }
 

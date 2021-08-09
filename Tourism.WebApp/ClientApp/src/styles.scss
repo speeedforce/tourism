@@ -2,12 +2,14 @@
 
 /* Provide sufficient contrast against white background */
 
-code {
-  color: #e01a76;
+.page-styles {
+  display: flex;
+  justify-content: center;
 }
 
-.btn-primary {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+.main-image{
+  img {
+    width: 100%;
+  }
 }
+

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { User, UserManager, WebStorageStateStore } from 'oidc-client';
-import { BehaviorSubject, concat, from, Observable } from 'rxjs';
+import { BehaviorSubject, concat, from, Observable, of } from 'rxjs';
 import { filter, map, mergeMap, take, tap } from 'rxjs/operators';
 import { ApplicationPaths, ApplicationName } from './api-authorization.constants';
 
@@ -56,9 +56,10 @@ export class AuthorizeService {
   }
 
   public getAccessToken(): Observable<string> {
-    return from(this.ensureUserManagerInitialized())
-      .pipe(mergeMap(() => from(this.userManager.getUser())),
-        map(user => user && user.access_token));
+    // return from(this.ensureUserManagerInitialized())
+    //   .pipe(mergeMap(() => from(this.userManager.getUser())),
+    //     map(user => user && user.access_token));
+    return of ("");
   }
 
   // We try to authenticate the user in three different ways:
@@ -170,24 +171,24 @@ export class AuthorizeService {
   }
 
   private async ensureUserManagerInitialized(): Promise<void> {
-    if (this.userManager !== undefined) {
-      return;
-    }
+    // if (this.userManager !== undefined) {
+    //   return;
+    // }
 
-    const response = await fetch(ApplicationPaths.ApiAuthorizationClientConfigurationUrl);
-    if (!response.ok) {
-      throw new Error(`Could not load settings for '${ApplicationName}'`);
-    }
+    // const response = await fetch(ApplicationPaths.ApiAuthorizationClientConfigurationUrl);
+    // if (!response.ok) {
+    //   throw new Error(`Could not load settings for '${ApplicationName}'`);
+    // }
 
-    const settings: any = await response.json();
-    settings.automaticSilentRenew = true;
-    settings.includeIdTokenInSilentRenew = true;
-    this.userManager = new UserManager(settings);
+    // const settings: any = await response.json();
+    // settings.automaticSilentRenew = true;
+    // settings.includeIdTokenInSilentRenew = true;
+    // this.userManager = new UserManager(settings);
 
-    this.userManager.events.addUserSignedOut(async () => {
-      await this.userManager.removeUser();
-      this.userSubject.next(null);
-    });
+    // this.userManager.events.addUserSignedOut(async () => {
+    //   await this.userManager.removeUser();
+    //   this.userSubject.next(null);
+    // });
   }
 
   private getUserFromStorage(): Observable<IUser> {

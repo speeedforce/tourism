@@ -76,7 +76,6 @@ namespace Tourism.WebApp.Controllers
 
         // POST api/<ArticleController>
         [HttpPost]
-        [Authorize]
         public async Task<IActionResult> Post([FromBody] ArticleInputModel model)
         {
             try

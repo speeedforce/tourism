@@ -15,7 +15,7 @@ namespace Tourism.Infrastructure
             _context = context;
         }
 
-        public IEnumerable<Article> GetAll() => _context.Articles;
+        public IEnumerable<Article> GetAll() => _context.Articles.Include(a => a.User);
         
         public Article GetById(int id) => _context.Articles.FirstOrDefault(item => item.Id == id);
 

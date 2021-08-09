@@ -25,6 +25,15 @@ namespace Tourism.WebApp
         // This method gets called by the runtime. Use this method to add services to the container.
         public virtual void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(
+                                  builder =>
+                                  {
+                                      builder.WithOrigins("http://localhost:4200");
+                                  });
+            });
+
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseNpgsql(
                     Configuration.GetConnectionString("DefaultConnection")));
@@ -68,6 +77,7 @@ namespace Tourism.WebApp
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+           
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
@@ -75,9 +85,9 @@ namespace Tourism.WebApp
             {
                 app.UseSpaStaticFiles();
             }
-
+          
             app.UseRouting();
-
+            app.UseCors();
             app.UseAuthentication();
             app.UseIdentityServer();
             app.UseAuthorization();

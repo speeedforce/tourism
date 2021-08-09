@@ -1,3 +1,17 @@
-<p>
-  article works!
-</p>
+<div class="article-card">
+  <div class="card__image">
+    <img [src]="article.imageUrl" >
+  </div>
+  <div class="card__title">
+      <h3>{{article.title}}</h3>
+  </div>
+  <div class="card__content">
+    <div class="card__text">
+      {{article.content}}
+    </div> 
+  </div>
+  <div class="footer">
+    <p>{{article.created | date: 'short'}}</p>
+    <p>{{article.author}}</p>
+  </div>
+</div>

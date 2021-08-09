@@ -34,7 +34,7 @@ namespace Tourism.Server.Services
         public Forum GetById(int id = 1)
         {
             return _context.Forums
-                            .Include(item => item.Articles)
+                            .Include(item => item.Articles).ThenInclude(a => a.User)
                             .FirstOrDefault(item => item.Id == id);
         }
     }
