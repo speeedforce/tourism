@@ -5,9 +5,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Services\ArticleService.cs" />
+    <Compile Remove="Services\ForumService.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Tourism.Application\Tourism.Core.csproj" />
   </ItemGroup>
 	<ItemGroup>
+		<PackageReference Include="BCrypt.Net-Next" Version="4.0.2" />
 		<PackageReference Include="Npgsql" Version="5.0.7" />
 		<PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="5.0.7" />
 		<PackageReference Include="System.Net.Http.Json" Version="5.0.0" />

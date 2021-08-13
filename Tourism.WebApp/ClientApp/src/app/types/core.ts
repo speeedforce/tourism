@@ -1,4 +1,19 @@
 
+export enum Role {
+    User = 'User',
+    Admin = 'Admin'
+}
+
+
+export class User {
+    id: number;
+    firstName: string;
+    lastName: string;
+    username: string;
+    role: Role;
+    token?: string;
+}
+
 export interface IForum {
     id: number;
     title: string;

@@ -18,10 +18,13 @@ namespace Tourism.WebApp
                 .Run();
         }
 
-        public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-            // create a default web host builder, with the default settings and configuration
-            WebHost.CreateDefaultBuilder(args)
-                // configure it to use your `Startup` class
-                .UseStartup<Startup>();
+        public static IHostBuilder CreateWebHostBuilder(string[] args) =>
+          // create a default web host builder, with the default settings and configuration
+          Host.CreateDefaultBuilder(args)
+                .ConfigureWebHostDefaults(x =>
+                {
+                    x.UseStartup<Startup>();
+                
+                });
     }
 }

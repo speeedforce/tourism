@@ -1,21 +1,21 @@
-import { Component, OnInit } from '@angular/core';
-import { AuthorizeService } from '../authorize.service';
-import { Observable } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+// import { Component, OnInit } from '@angular/core';
 
-@Component({
-  selector: 'app-login-menu',
-  templateUrl: './login-menu.component.html',
-  styleUrls: ['./login-menu.component.scss']
-})
-export class LoginMenuComponent implements OnInit {
-  public isAuthenticated: Observable<boolean>;
-  public userName: Observable<string>;
+// import { Observable } from 'rxjs';
+// import { map, tap } from 'rxjs/operators';
 
-  constructor(private authorizeService: AuthorizeService) { }
+// @Component({
+//   selector: 'app-login-menu',
+//   templateUrl: './login-menu.component.html',
+//   styleUrls: ['./login-menu.component.scss']
+// })
+// export class LoginMenuComponent implements OnInit {
+//   public isAuthenticated: Observable<boolean>;
+//   public userName: Observable<string>;
 
-  ngOnInit() {
-    this.isAuthenticated = this.authorizeService.isAuthenticated();
-    this.userName = this.authorizeService.getUser().pipe(map(u => u && u.name));
-  }
-}
+//   constructor(private authorizeService: AuthorizeService) { }
+
+//   ngOnInit() {
+//     this.isAuthenticated = this.authorizeService.isAuthenticated();
+//     this.userName = this.authorizeService.getUser().pipe(map(u => u && u.name));
+//   }
+// }

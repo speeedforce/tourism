@@ -18,14 +18,14 @@ namespace Tourism.WebApp.Controllers
     public class ArticleController : ControllerBase
     {
         private readonly IArticleService _articleService;
-        private readonly UserManager<ApplicationUser> _userManager;
+        //private readonly UserManager<User> _userManager;
         private readonly IForumService _forumService;
         public ArticleController(IArticleService articleService, 
-            UserManager<ApplicationUser> userManager,
+          
             IForumService forumService)
         {
             _articleService = articleService;
-            _userManager = userManager;
+           
             _forumService = forumService;
         }
 
@@ -35,9 +35,7 @@ namespace Tourism.WebApp.Controllers
         {
             try
             {
-                var userId = _userManager.GetUserId(User);
-                var user = _userManager.FindByIdAsync(userId).Result;
-
+               
                 return Ok (new
                 {
                     items = _articleService.GetAll()
@@ -80,18 +78,18 @@ namespace Tourism.WebApp.Controllers
         {
             try
             {
-                var userId = _userManager.GetUserId(User);
-                var user = _userManager.FindByIdAsync(userId).Result;
+                //var userId = _userManager.GetUserId(User);
+                //var user = _userManager.FindByIdAsync(userId).Result;
 
-                //mock
-                var forum = _forumService.GetById();
-                var article = BuildArticle(model, user, forum);
+                ////mock
+                //var forum = _forumService.GetById();
+                //var article = BuildArticle(model, user, forum);
                
-                var item = await _articleService.Create(article);
+                //var item = await _articleService.Create(article);
 
-                var articleVM = BuildArticleViewModel(item);
+                //var articleVM = BuildArticleViewModel(item);
 
-                return Ok(new { item = articleVM });
+                return Ok();
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -150,7 +148,7 @@ namespace Tourism.WebApp.Controllers
 
 
         #region ViewModels 
-        public static Article BuildArticle(ArticleInputModel model, ApplicationUser user, Forum forum)
+        public static Article BuildArticle(ArticleInputModel model, User user, Forum forum)
         {
             return new Article
             {
@@ -167,7 +165,7 @@ namespace Tourism.WebApp.Controllers
         {
             return new ArticleViewModel
             {
-                Author = a.User?.UserName,
+                Author = a.User.Username,
                 Id = a.Id,
                 Title = a.Title,
                 Content = a.Content,

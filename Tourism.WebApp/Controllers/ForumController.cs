@@ -16,10 +16,10 @@ namespace Tourism.WebApp.Controllers
     [ApiController]
     public class ForumController : ControllerBase
     {
-        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly UserManager<User> _userManager;
         private readonly IForumService _forumService;
 
-        public ForumController(UserManager<ApplicationUser> userManager, IForumService forumService)
+        public ForumController(UserManager<User> userManager, IForumService forumService)
         {
             _userManager = userManager;
             _forumService = forumService;
@@ -140,7 +140,7 @@ namespace Tourism.WebApp.Controllers
             var replies = a.Replies as List<ArticleReply>;
             return new ArticleViewModel
             {
-                Author = a.User?.UserName,
+                Author = a.User.Username,
                 Id = a.Id,
                 Title = a.Title,
                 Content = a.Content,

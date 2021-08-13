@@ -1,23 +1,28 @@
-﻿using IdentityServer4.EntityFramework.Options;
-using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Tourism.Core.Models;
 
 namespace Tourism.Infrastructure
 {
-    public class ApplicationDbContext : ApiAuthorizationDbContext<ApplicationUser>
+    public class ApplicationDbContext : DbContext
     {
-        public ApplicationDbContext(
-            DbContextOptions options,
-            IOptions<OperationalStoreOptions> operationalStoreOptions) : base(options, operationalStoreOptions)
+
+    
+
+        private readonly IConfiguration Configuration;
+
+        public ApplicationDbContext(IConfiguration configuration, DbContextOptions options) : base(options)
         {
+            Configuration = configuration;
         }
 
+        //public DbSet<ApplicationUser> ApplicationUsers { get; set; }
+        //public DbSet<Forum> Forums { get; set; }
+        //public DbSet<Article> Articles { get; set; }
+        //public DbSet<ArticleReply> ArticleReplies { get; set; }
 
-        public DbSet<ApplicationUser> ApplicationUsers { get; set; }
-        public DbSet<Forum> Forums { get; set; }
-        public DbSet<Article> Articles { get; set; }
-        public DbSet<ArticleReply> ArticleReplies { get; set; }
+        public DbSet<User> Users { get; set; }
+
+       
     }
 }

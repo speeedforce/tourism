@@ -5,7 +5,8 @@ export function generateMenu(): ILink[] {
             { title: "Календар", link: "/calendar"},
             { title: "Карти", link: "/maps"},
             { title: "Контакти", link: "/contact"},
-            { title: "Архів", link: "/archive"},     
+            { title: "Архів", link: "/archive"},   
+            { title: "Вхід", link: "/login"},     
         ];
     } 
 
