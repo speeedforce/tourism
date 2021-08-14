@@ -5,8 +5,9 @@ using System.Linq;
 using System.Net;
 using System.Text.Json;
 using System.Threading.Tasks;
+using Tourism.Core.Helpers;
 
-namespace Tourism.Core.Helpers
+namespace Tourism.WebApp
 {
     public class ErrorHandlerMiddleware
     {

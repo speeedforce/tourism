@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Tourism.Core.Models;
+﻿using Tourism.Core.Models;
 
-namespace Tourism.WebApp.ViewModels
+namespace Tourism.Core.Dto.UserDto
 {
-    public class AuthenticateResponse
+    public class AuthenticateResponseDto
     {
         public long Id { get; set; }
         public string FirstName { get; set; }
@@ -15,7 +11,7 @@ namespace Tourism.WebApp.ViewModels
         public Role Role { get; set; }
         public string Token { get; set; }
 
-        public AuthenticateResponse(User user, string token)
+        public AuthenticateResponseDto(User user, string token)
         {
             Id = user.Id;
             FirstName = user.FirstName;

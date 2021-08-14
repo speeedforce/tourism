@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Tourism.Core;
+using Tourism.Core.Dto.ArticleDto;
 using Tourism.Core.Models;
 
 namespace Tourism.Infrastructure
@@ -15,16 +16,32 @@ namespace Tourism.Infrastructure
             _context = context;
         }
 
-        public IEnumerable<Article> GetAll() => _context.Articles.Include(a => a.User);
+        public IEnumerable<ArticleResponseDto> GetAll()
+        {
+           return _context.Articles.Include(a => a.User)
+                .Select(a => BuildArticleResponseDto(a));
+        }
         
-        public Article GetById(int id) => _context.Articles.FirstOrDefault(item => item.Id == id);
+        public ArticleResponseDto GetById(int id) => 
+            BuildArticleResponseDto(_context.Articles.FirstOrDefault(item => item.Id == id));
 
-        public async Task<Article> Create(Article article)
+        public async Task<ArticleResponseDto> Create(Article article)
         {
             _context.Articles.Add(article);
             await _context.SaveChangesAsync();
-            return article;
+            return BuildArticleResponseDto(article);
         }
+
+        public async Task<ArticleResponseDto> Edit(Article article)
+        {
+
+            _context.Entry(article).State = EntityState.Modified;
+
+            await _context.SaveChangesAsync();
+
+            return BuildArticleResponseDto(article);
+        }
+
 
         public async Task Delete(int id)
         {
@@ -33,16 +50,22 @@ namespace Tourism.Infrastructure
             await _context.SaveChangesAsync();
         }
 
-        public async Task<Article> Edit(Article article)
-        {
-         
-            _context.Entry(article).State = EntityState.Modified;
-           
-            await _context.SaveChangesAsync();
-
-            return article;
-        }
-
       
+
+
+        public static ArticleResponseDto BuildArticleResponseDto(Article a)
+        {
+            return new ArticleResponseDto
+            {
+                Author = a.User.Username,
+                Id = a.Id,
+                Title = a.Title,
+                Content = a.Content,
+                CountReplies = (a.Replies as List<ArticleReply>).Count,
+                Created = a.Created,
+                ForumId = a.ForumId,
+                ImageUrl = a.ImageUrl
+            };
+        }
     }
 }

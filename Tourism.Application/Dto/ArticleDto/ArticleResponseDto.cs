@@ -1,9 +1,9 @@
 ﻿using System;
 
 
-namespace Tourism.WebApp.ViewModels
+namespace Tourism.Core.Dto.ArticleDto
 {
-    public class ArticleViewModel
+    public class ArticleResponseDto
     {
         public int Id { get; set; }
         public string Title { get; set; }

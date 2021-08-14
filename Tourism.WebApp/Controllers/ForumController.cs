@@ -1,11 +1,11 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Tourism.Core;
+using Tourism.Core.Dto.ForumDto;
 using Tourism.Core.Models;
+using Tourism.Server.Services;
 using Tourism.WebApp.ViewModels;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -16,27 +16,21 @@ namespace Tourism.WebApp.Controllers
     [ApiController]
     public class ForumController : ControllerBase
     {
-        private readonly UserManager<User> _userManager;
         private readonly IForumService _forumService;
 
-        public ForumController(UserManager<User> userManager, IForumService forumService)
+        public ForumController(IForumService forumService)
         {
-            _userManager = userManager;
             _forumService = forumService;
         }
 
-
-        // GET: api/<ForumController>
-
-        // Get default forum
         [HttpGet]
-        public ForumViewModel Get()
+        public ForumResponseDto Get()
         {
             try
             {
                 var item = _forumService.GetById();
 
-                var forumVM = BuildForumViewModel(item);
+                var forumVM = ForumService.BuildForumDto(item);
 
                 return forumVM;
             }
@@ -52,7 +46,7 @@ namespace Tourism.WebApp.Controllers
         [HttpPost]
         
         // TODO only for admin
-        public async Task<IActionResult> Post([FromBody] ForumInputModel model)
+        public async Task<IActionResult> Post([FromBody] ForumRequestDto model)
         {
             var forum = BuildForum(model);
 
@@ -99,7 +93,7 @@ namespace Tourism.WebApp.Controllers
 
         #region ViewModels
 
-        private Forum BuildForum(ForumInputModel model)
+        private Forum BuildForum(ForumRequestDto model)
         {
             return new Forum
             {
@@ -109,49 +103,6 @@ namespace Tourism.WebApp.Controllers
                 ImageUrl = model.ImageUrl == null ? "" : model.ImageUrl            
             };
         }
-
-
-        private ForumViewModel BuildForumViewModel(Forum forum)
-        {
-            var forumViewModel = new ForumViewModel
-            {
-                Id = forum.Id,
-                Title = forum.Title,
-                Description = forum.Description,
-                ImageUrl = forum.ImageUrl
-            };
-
-            List<ArticleViewModel> articles = new List<ArticleViewModel>();
-
-            foreach(var a in forum.Articles)
-            {
-                var articleVM = BuildArticleViewModel(a);
-
-                articles.Add(articleVM);
-            }
-
-            forumViewModel.Articles = articles;
-
-            return forumViewModel;
-        }
-
-        private static ArticleViewModel BuildArticleViewModel(Article a)
-        {
-            var replies = a.Replies as List<ArticleReply>;
-            return new ArticleViewModel
-            {
-                Author = a.User.Username,
-                Id = a.Id,
-                Title = a.Title,
-                Content = a.Content,
-                CountReplies = replies != null ? replies.Count : 0,
-                Created = a.Created,
-                ForumId = a.ForumId,
-                ImageUrl = a.ImageUrl
-            };
-        }
-
-
 
         #endregion
     }

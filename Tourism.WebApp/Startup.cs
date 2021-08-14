@@ -8,12 +8,15 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
+using Tourism.Athorization.Core;
 using Tourism.Core;
 using Tourism.Core.Authorization;
 using Tourism.Core.Helpers;
 using Tourism.Core.Models;
 using Tourism.Infrastructure;
 using Tourism.Infrastructure.Services;
+using Tourism.Infrastructure.Services.Authorization;
+using Tourism.WebApp.Authorization;
 using BCryptNet = BCrypt.Net.BCrypt;
 
 namespace Tourism.WebApp

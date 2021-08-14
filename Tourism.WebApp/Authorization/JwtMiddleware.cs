@@ -1,12 +1,13 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Tourism.Athorization.Core;
+using Tourism.Core;
+using Tourism.Core.Authorization;
 using Tourism.Core.Helpers;
 
-namespace Tourism.Core.Authorization
+namespace Tourism.WebApp.Authorization
 {
     public class JwtMiddleware
     {

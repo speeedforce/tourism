@@ -1,9 +1,9 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace Tourism.WebApp.ViewModels
+namespace Tourism.Core.Dto.ForumDto
 {
-    public class ForumInputModel
+    public class ForumRequestDto
     {
 
         [Required]

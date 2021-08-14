@@ -1,14 +1,15 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Tourism.Core;
+﻿
+using Microsoft.AspNetCore.Mvc;
+using Tourism.Athorization.Core;
 using Tourism.Core.Authorization;
+using Tourism.Core.Dto.UserDto;
 using Tourism.Core.Models;
-using Tourism.Core.ViewModels;
-using Tourism.WebApp.ViewModels;
+
 
 namespace Tourism.WebApp.Controllers
 {
     [Authorize]
-        [Route("api/[controller]")]
+    [Route("api/[controller]")]
     [ApiController]
 
     public class UsersController : ControllerBase
@@ -22,7 +23,7 @@ namespace Tourism.WebApp.Controllers
 
         [AllowAnonymous]
         [HttpPost("[action]")]
-        public IActionResult Authenticate(AuthenticateRequest model)
+        public IActionResult Authenticate(AuthenticateRequestDto model)
         {
             var response = _userService.Authenticate(model);
             return Ok(response);

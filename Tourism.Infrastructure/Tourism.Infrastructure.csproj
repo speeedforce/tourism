@@ -5,11 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Services\ArticleService.cs" />
-    <Compile Remove="Services\ForumService.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Tourism.Application\Tourism.Core.csproj" />
   </ItemGroup>
 	<ItemGroup>

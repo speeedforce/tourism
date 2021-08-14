@@ -3,13 +3,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
+using Tourism.Athorization.Core;
 using Tourism.Core;
 using Tourism.Core.Authorization;
+using Tourism.Core.Dto.UserDto;
 using Tourism.Core.Helpers;
 using Tourism.Core.Models;
-using Tourism.Core.ViewModels;
-using Tourism.WebApp.ViewModels;
 using BCryptNet = BCrypt.Net.BCrypt;
 namespace Tourism.Infrastructure.Services
 {
@@ -30,7 +29,7 @@ namespace Tourism.Infrastructure.Services
         }
 
 
-        public AuthenticateResponse Authenticate(AuthenticateRequest model)
+        public AuthenticateResponseDto Authenticate(AuthenticateRequestDto model)
         {
             var user = _context.Users.SingleOrDefault(x => x.Username == model.Username);
 
@@ -41,7 +40,7 @@ namespace Tourism.Infrastructure.Services
             // authentication successful so generate jwt token
             var jwtToken = _jwtUtils.GenerateJwtToken(user);
 
-            return new AuthenticateResponse(user, jwtToken);
+            return new AuthenticateResponseDto(user, jwtToken);
         }
 
         public IEnumerable<User> GetAll()

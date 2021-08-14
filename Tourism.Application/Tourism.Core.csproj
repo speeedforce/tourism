@@ -12,9 +12,6 @@
 		<PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="5.0.8" />
 		<PackageReference Include="Microsoft.AspNetCore.ApiAuthorization.IdentityServer" Version="5.0.8" />
 	</ItemGroup>
-	<ItemGroup>
-	  <Folder Include="NewFolder\" />
-	</ItemGroup>
 
 	
 </Project>

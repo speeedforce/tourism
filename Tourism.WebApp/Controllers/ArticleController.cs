@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Tourism.Athorization.Core;
 using Tourism.Core;
+using Tourism.Core.Dto.ArticleDto;
 using Tourism.Core.Models;
 using Tourism.WebApp.ViewModels;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace Tourism.WebApp.Controllers
 {
@@ -18,14 +18,14 @@ namespace Tourism.WebApp.Controllers
     public class ArticleController : ControllerBase
     {
         private readonly IArticleService _articleService;
-        //private readonly UserManager<User> _userManager;
+        private readonly IUserService _userService;
         private readonly IForumService _forumService;
         public ArticleController(IArticleService articleService, 
-          
+            IUserService userService,
             IForumService forumService)
         {
             _articleService = articleService;
-           
+            _userService = userService;
             _forumService = forumService;
         }
 
@@ -35,11 +35,7 @@ namespace Tourism.WebApp.Controllers
         {
             try
             {
-               
-                return Ok (new
-                {
-                    items = _articleService.GetAll()
-                });
+                return Ok (new  { items = _articleService.GetAll() });
             }
             catch (Exception)
             {
@@ -74,22 +70,19 @@ namespace Tourism.WebApp.Controllers
 
         // POST api/<ArticleController>
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] ArticleInputModel model)
+        [Authorize]
+        public async Task<IActionResult> Post([FromBody] ArticleRequestDto model)
         {
             try
             {
-                //var userId = _userManager.GetUserId(User);
-                //var user = _userManager.FindByIdAsync(userId).Result;
+                var user = (User)HttpContext.Items["User"];
+           
+                var forum = _forumService.GetById();
+                var article = BuildArticle(model, user, forum);
 
-                ////mock
-                //var forum = _forumService.GetById();
-                //var article = BuildArticle(model, user, forum);
-               
-                //var item = await _articleService.Create(article);
+                var item = await _articleService.Create(article);
 
-                //var articleVM = BuildArticleViewModel(item);
-
-                return Ok();
+                return Ok(item);
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -97,7 +90,7 @@ namespace Tourism.WebApp.Controllers
                 //Log
                 return BadRequest();
             }
-            catch(Exception ex)
+            catch (Exception)
             {
 
             }
@@ -147,8 +140,7 @@ namespace Tourism.WebApp.Controllers
         }
 
 
-        #region ViewModels 
-        public static Article BuildArticle(ArticleInputModel model, User user, Forum forum)
+        public static Article BuildArticle(ArticleRequestDto model, User user, Forum forum)
         {
             return new Article
             {
@@ -160,21 +152,5 @@ namespace Tourism.WebApp.Controllers
                 Forum = forum
             };
         }
-
-        private static ArticleViewModel BuildArticleViewModel(Article a)
-        {
-            return new ArticleViewModel
-            {
-                Author = a.User.Username,
-                Id = a.Id,
-                Title = a.Title,
-                Content = a.Content,
-                CountReplies = (a.Replies as List<ArticleReply>).Count,
-                Created = a.Created,
-                ForumId = a.ForumId,
-                ImageUrl = a.ImageUrl
-            };
-        }
-        #endregion
     }
 }
