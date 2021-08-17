@@ -1,9 +1,18 @@
 <div class="forum-container">
   <div class="forum-header">
-  </div>
-  <div class="forum-articles" *ngIf="">
-    <div  *ngFor="let item of (forum$ | async).articles">
-        <app-article [article]='item'></app-article>
+    <div class="image-title">
+
     </div>
   </div>
-</div>>
+  <div  class="forum-articles"  *ngIf="loading && forum !== undefined else loading">
+        <app-article class="cards__item" *ngFor="let item of forum.articles"
+         [article]='item'>
+
+        </app-article>
+  </div>
+  <ng-template #loading>
+      <div>Loading...</div>
+  </ng-template>
+</div>
+
+<!-- <app-article [article]='default'></app-article> -->

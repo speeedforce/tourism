@@ -1,9 +1,11 @@
 <header>
   <nav
-    class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3"
-  >
-    <div class="container">
-      <a class="navbar-brand" [routerLink]="['/']">Tourism.WebApp</a>
+    class="navbar navbar-expand-sm navbar-toggleable-sm navbar-container border-bottom box-shadow">
+    <div class="logo">
+      <a [routerLink]="['/']">Запорізький центр спортивного орієнтування</a>
+    </div>
+    <div class="navbar-container">
+     
       <button
         class="navbar-toggler"
         type="button"
@@ -19,27 +21,21 @@
         class="navbar-collapse collapse d-sm-inline-flex justify-content-end"
         [ngClass]="{ show: isExpanded }"
       >
-        <ul class="navbar-nav flex-grow">
-          <li
+
+        <ul class="navbar-nav flex-grow" >
+          <li *ngFor="let item of menuItems"
             class="nav-item"
-            [routerLinkActive]="['link-active']"
+            [routerLinkActive]="item.link"
             [routerLinkActiveOptions]="{ exact: true }"
           >
-            <a class="nav-link text-dark" [routerLink]="['/']">Home</a>
-          </li>
-          <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" [routerLink]="['/counter']"
-              >Counter</a
-            >
-          </li>
-          <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" [routerLink]="['/fetch-data']"
-              >Fetch data</a
-            >
+            <a  [class]="href.includes(item.link) ? 'nav-link active' : 'nav-link'" [routerLink]="item.link">{{item.title}}</a>
           </li>
         </ul>
-        <app-login-menu></app-login-menu>
+     
       </div>
+
     </div>
+
+   
   </nav>
 </header>
