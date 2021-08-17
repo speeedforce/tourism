@@ -43,7 +43,7 @@ namespace Tourism.WebApp.Controllers
             }
             catch(AppException ex)
             {
-                return BadRequest(ex);
+                return BadRequest(new { ex.Message });
             }   
         }
 

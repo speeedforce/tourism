@@ -1,33 +1,39 @@
 <div class="col-md-6 offset-md-3 mt-5">
  
   <div class="card">
-      <h4 class="card-header">Angular 10 Role Based Auth Example</h4>
+      <h4 class="card-header">{{SYSTEM_CONTENT.CONTENT.REGISTER_TITLE}}</h4>
       <div class="card-body">
           <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
               <div class="form-group">
-                  <label for="email">Email</label>
+                  <label for="email">{{SYSTEM_CONTENT.CONTENT.EMAIL}}</label>
                   <input type="text" formControlName="username" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.username.errors }" />
                   <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
-                      <div *ngIf="f.username.errors.required">Username is required</div>
+                      <div *ngIf="f.username.errors.required">{{SYSTEM_CONTENT.ERRORS.EMAIL_REQUIRED}}</div>
+                      <div *ngIf="f.username.errors.email">{{SYSTEM_CONTENT.ERRORS.EMAIL_INVALID}}</div>
                   </div>
               </div>
               <div class="form-group">
-                  <label for="password">Password</label>
+                  <label for="password">{{SYSTEM_CONTENT.CONTENT.PASSWORD}}</label>
                   <input type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
                   <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
-                      <div *ngIf="f.password.errors.required">Password is required</div>
+                      <div *ngIf="f.password.errors.required">{{SYSTEM_CONTENT.ERRORS.PASSWORD_REQUIRED}}</div>
+                      <div *ngIf="f.password.errors.pattern">{{SYSTEM_CONTENT.ERRORS.PASSWOWRD_INVALID}}</div>
                   </div>
               </div>
               <div class="form-group">
-                <label for="password">Repeat Password</label>
-                <input type="password" formControlName="repeatPassword" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
-                <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
-                    <div *ngIf="f.password.errors.required">Password is required</div>
+                <label for="repeatPassword">{{SYSTEM_CONTENT.CONTENT.CONFIRM_PASSWORD}}</label>
+                <input type="password" formControlName="repeatPassword" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.repeatPassword.errors }" />
+                <div *ngIf="submitted && f.repeatPassword.errors" class="invalid-feedback">
+                    <div *ngIf="f.repeatPassword.errors.required">{{SYSTEM_CONTENT.ERRORS.CONFIRM_PASSWORD_REQUIRED}}</div>
+                    <div *ngIf="f.repeatPassword.errors.mismatch">{{SYSTEM_CONTENT.ERRORS.PASSWORD_NOT_MATCHED}}</div>
                 </div>
+                
+                
             </div>
-              <button [disabled]="loading" class="btn btn-primary">
+              <button [disabled]="loading"
+              class="btn btn-primary w-100">
                   <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
-                  Login
+                  {{SYSTEM_CONTENT.CONTENT.REGISTER}}
               </button>
               <div *ngIf="error" class="alert alert-danger mt-3 mb-0">{{error}}</div>
           </form>
