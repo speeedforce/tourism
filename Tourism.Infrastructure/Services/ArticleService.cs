@@ -22,8 +22,8 @@ namespace Tourism.Infrastructure
                 .Select(a => BuildArticleResponseDto(a));
         }
         
-        public ArticleResponseDto GetById(int id) => 
-            BuildArticleResponseDto(_context.Articles.FirstOrDefault(item => item.Id == id));
+        public Article GetById(int id) => 
+            _context.Articles.FirstOrDefault(item => item.Id == id);
 
         public async Task<ArticleResponseDto> Create(Article article)
         {
@@ -61,7 +61,7 @@ namespace Tourism.Infrastructure
                 Id = a.Id,
                 Title = a.Title,
                 Content = a.Content,
-                CountReplies = (a.Replies as List<ArticleReply>).Count,
+                CountReplies = a.Replies == null ? 0 : (a.Replies as List<ArticleReply>).Count,
                 Created = a.Created,
                 ForumId = a.ForumId,
                 ImageUrl = a.ImageUrl

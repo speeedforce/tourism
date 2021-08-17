@@ -51,7 +51,9 @@ namespace Tourism.Server.Services
                 ImageUrl = forum.ImageUrl,
             };
 
-            forumDto.Articles = forum.Articles
+            
+
+            forumDto.Articles = forum.Articles?
                 .Select(item => ArticleService.BuildArticleResponseDto(item))
                 .ToList();
 

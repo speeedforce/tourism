@@ -10,7 +10,7 @@ namespace Tourism.Core
     {
         IEnumerable<ArticleResponseDto> GetAll();
 
-        ArticleResponseDto GetById(int id);
+        Article GetById(int id);
 
         Task<ArticleResponseDto> Create(Article article);
 

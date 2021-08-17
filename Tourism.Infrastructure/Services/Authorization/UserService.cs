@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using Tourism.Athorization.Core;
 using Tourism.Core;
 using Tourism.Core.Authorization;
@@ -43,12 +44,36 @@ namespace Tourism.Infrastructure.Services
             return new AuthenticateResponseDto(user, jwtToken);
         }
 
+        public async Task<AuthenticateResponseDto> Register(AuthenticateRequestDto model)
+        {
+            var user = _context.Users.SingleOrDefault(x => x.Username == model.Username);
+
+            if (user != null)
+                throw new AppException("Username already exist");
+
+            user = new User()
+            {
+                Username = model.Username,
+                PasswordHash = BCryptNet.HashPassword(model.Password),
+                Role = Role.User,
+                FirstName = "",
+                LastName = ""
+            };
+
+            _context.Users.Add(user);
+            await _context.SaveChangesAsync();
+
+            var newUser = Authenticate(model);
+
+            return newUser;
+        }
+
         public IEnumerable<User> GetAll()
         {
             return _context.Users;
         }
 
-        public User GetById(int id)
+        public User GetById(long id)
         {
             var user = _context.Users.Find(id);
             if (user == null) throw new KeyNotFoundException("User not found");

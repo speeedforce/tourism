@@ -1,5 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
+﻿
+
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Tourism.Athorization.Core;
 using Tourism.Core;
+using Tourism.Core.Authorization;
 using Tourism.Core.Dto.ArticleDto;
 using Tourism.Core.Models;
 using Tourism.WebApp.ViewModels;
@@ -70,7 +71,7 @@ namespace Tourism.WebApp.Controllers
 
         // POST api/<ArticleController>
         [HttpPost]
-        [Authorize]
+        [Authorize(Role.Admin)]
         public async Task<IActionResult> Post([FromBody] ArticleRequestDto model)
         {
             try
@@ -101,6 +102,7 @@ namespace Tourism.WebApp.Controllers
 
 
         // PUT api/<ArticleController>/5
+        [Authorize(Role.Admin)]
         [HttpPut("{id}")]
         public async Task<IActionResult> Put(int id, [FromBody] Article value)
         {
@@ -121,15 +123,15 @@ namespace Tourism.WebApp.Controllers
         }
 
         // DELETE api/<ArticleController>/5
+        [Authorize(Role.Admin)]
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
             try
             {
                 Task item =  _articleService.Delete(id);
-                return item.IsCompletedSuccessfully ? 
-                    Ok() 
-                    : BadRequest(new ErrorViewModel { Message = "Item wasn't deleted" });
+
+                return Ok(id);
             }
             catch (DbUpdateConcurrencyException)
             {

@@ -1,8 +1,10 @@
 ﻿
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 using Tourism.Athorization.Core;
 using Tourism.Core.Authorization;
 using Tourism.Core.Dto.UserDto;
+using Tourism.Core.Helpers;
 using Tourism.Core.Models;
 
 
@@ -29,7 +31,21 @@ namespace Tourism.WebApp.Controllers
             return Ok(response);
         }
 
-    
+
+        [AllowAnonymous]
+        [HttpPost("[action]")]
+        public async Task<IActionResult> Register(AuthenticateRequestDto model)
+        {
+            try
+            {
+                var response = await _userService.Register(model);
+                return Ok(response);
+            }
+            catch(AppException ex)
+            {
+                return BadRequest(ex);
+            }   
+        }
 
         [Authorize(Role.Admin)]
         [HttpGet]
@@ -39,8 +55,8 @@ namespace Tourism.WebApp.Controllers
             return Ok(users);
         }
 
-        [HttpGet("{id:int}")]
-        public IActionResult GetById(int id)
+        [HttpGet("{id:long}")]
+        public IActionResult GetById(long id)
         {
             // only admins can access other user records
             var currentUser = (User)HttpContext.Items["User"];

@@ -16,6 +16,7 @@ using Tourism.Core.Models;
 using Tourism.Infrastructure;
 using Tourism.Infrastructure.Services;
 using Tourism.Infrastructure.Services.Authorization;
+using Tourism.Server.Services;
 using Tourism.WebApp.Authorization;
 using BCryptNet = BCrypt.Net.BCrypt;
 
@@ -60,17 +61,14 @@ namespace Tourism.WebApp
             // configure strongly typed settings object
             services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
 
-            // configure DI for application services
-            // configure DI for application services
+
             services.AddScoped<IJwtUtils, JwtUtils>();
             services.AddScoped<IUserService, UserService>();
 
-            //services.AddScoped<IForumService, ForumService>();
-            //services.AddScoped<IArticleService, ArticleService>();
+            services.AddScoped<IForumService, ForumService>();
+            services.AddScoped<IArticleService, ArticleService>();
 
-            //services.AddAuthentication()
-            //    .AddIdentityServerJwt();
-            //services.AddControllersWithViews();
+
             services.AddRazorPages(options =>
             {
                 options.Conventions.AuthorizePage("/SecurePage");

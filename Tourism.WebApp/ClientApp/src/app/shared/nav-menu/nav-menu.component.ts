@@ -1,6 +1,7 @@
-import { generateMenu, ILink } from './menu-config';
+import { generateMenu, generateMenuRegister, ILink } from './menu-config';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthenticationService } from 'src/api-authorization/authorize.service';
 
 @Component({
   selector: 'app-nav-menu',
@@ -13,8 +14,16 @@ export class NavMenuComponent {
 
   public href: string = "/";
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private authService: AuthenticationService) {
     this.href = this.router.url;
+
+    this.authService.user.subscribe(user => {
+      if (user !== null && user !== undefined) {
+        this.menuItems = generateMenuRegister(this.authService.userValue.username);
+      } else {
+        this.menuItems = generateMenu();
+      }
+    })
   }
 
   collapse() {

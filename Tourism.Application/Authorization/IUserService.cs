@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Tourism.Core.Dto.UserDto;
 using Tourism.Core.Models;
 
@@ -9,11 +10,11 @@ namespace Tourism.Athorization.Core
     {
         AuthenticateResponseDto Authenticate(AuthenticateRequestDto model);
 
-        User GetById(int id);
+        User GetById(long id);
 
         IEnumerable<User> GetAll();
 
-
+        Task<AuthenticateResponseDto> Register(AuthenticateRequestDto model);
     }
 
    
