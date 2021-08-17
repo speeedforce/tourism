@@ -1,4 +1,5 @@
-import { AuthorizeGuard } from './../api-authorization/authorize.guard';
+import { AuthGuard } from './../api-authorization/helpers/authorize.guard';
+
 import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { CounterComponent } from './counter/counter.component';
 import { RouterModule, Routes } from '@angular/router';
@@ -21,7 +22,10 @@ const routes: Routes = [
     redirectTo: ''
   },
   { path: 'counter', component: CounterComponent },
-  { path: 'fetch-data', component: FetchDataComponent, canActivate: [AuthorizeGuard] },
+  { path: 'fetch-data', component: FetchDataComponent, canActivate: [AuthGuard] },
+
+  // otherwise redirect to home
+  { path: '**', redirectTo: '' }
 
 ]
 

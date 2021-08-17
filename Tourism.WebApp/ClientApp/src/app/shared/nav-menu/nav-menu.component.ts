@@ -1,6 +1,6 @@
-import { generateMenu, ILink } from './menu-config';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthenticationService } from 'src/api-authorization/authorize.service';
 
 @Component({
   selector: 'app-nav-menu',
@@ -9,13 +9,6 @@ import { Router } from '@angular/router';
 })
 export class NavMenuComponent {
   isExpanded = false;
-  menuItems: ILink[] = generateMenu();
-
-  public href: string = "/";
-
-  constructor(private router: Router) {
-    this.href = this.router.url;
-  }
 
   collapse() {
     this.isExpanded = false;

@@ -1,30 +1,28 @@
+import { RegisterComponent } from './register/register.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LoginMenuComponent } from './login-menu/login-menu.component';
 import { LoginComponent } from './login/login.component';
-import { LogoutComponent } from './logout/logout.component';
 import { RouterModule } from '@angular/router';
-import { ApplicationPaths } from './api-authorization.constants';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { HttpClientModule } from '@angular/common/http';
+import { LogoutComponent } from './logout/logout.component';
 
 @NgModule({
   imports: [
     CommonModule,
     HttpClientModule,
-    RouterModule.forChild(
+    FormsModule,
+    ReactiveFormsModule,
+    RouterModule.forRoot(
       [
-        { path: ApplicationPaths.Register, component: LoginComponent },
-        { path: ApplicationPaths.Profile, component: LoginComponent },
-        { path: ApplicationPaths.Login, component: LoginComponent },
-        { path: ApplicationPaths.LoginFailed, component: LoginComponent },
-        { path: ApplicationPaths.LoginCallback, component: LoginComponent },
-        { path: ApplicationPaths.LogOut, component: LogoutComponent },
-        { path: ApplicationPaths.LoggedOut, component: LogoutComponent },
-        { path: ApplicationPaths.LogOutCallback, component: LogoutComponent }
+        { path: 'login', component: LoginComponent },
+        { path: 'register', component: RegisterComponent},
+        { path: 'logout', component: LogoutComponent}
+    
       ]
     )
   ],
-  declarations: [LoginMenuComponent, LoginComponent, LogoutComponent],
-  exports: [LoginMenuComponent, LoginComponent, LogoutComponent]
+  declarations: [ LoginComponent, RegisterComponent, LogoutComponent],
+  exports: [LoginComponent, RegisterComponent, LogoutComponent]
 })
 export class ApiAuthorizationModule { }

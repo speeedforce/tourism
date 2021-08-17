@@ -9,7 +9,7 @@ namespace Tourism.Core.Models
         public string Content { get; set; }
         public DateTime Created { get; set; }
 
-        public virtual ApplicationUser User { get; set; }
+        public virtual User User { get; set; }
 
         [JsonIgnore]
         public virtual Article Article { get; set; }

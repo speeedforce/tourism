@@ -1,52 +1,49 @@
 import { Injectable } from '@angular/core';
-import { User, UserManager, WebStorageStateStore } from 'oidc-client';
-import { BehaviorSubject, concat, from, Observable, of } from 'rxjs';
-import { filter, map, mergeMap, take, tap } from 'rxjs/operators';
-import { ApplicationPaths, ApplicationName } from './api-authorization.constants';
+import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { User } from 'src/app/types/core';
+import { environment } from 'src/environments/environment';
 
-export type IAuthenticationResult =
-  SuccessAuthenticationResult |
-  FailureAuthenticationResult |
-  RedirectAuthenticationResult;
 
-export interface SuccessAuthenticationResult {
-  status: AuthenticationResultStatus.Success;
-  state: any;
-}
+@Injectable({ providedIn: 'root' })
+export class AuthenticationService {
+   
+    private userSubject: BehaviorSubject<User>;
+    public user: Observable<User>;
 
-export interface FailureAuthenticationResult {
-  status: AuthenticationResultStatus.Fail;
-  message: string;
-}
+    constructor(
+        private router: Router,
+        private http: HttpClient
+    ) {
+        this.userSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('user')));
+        this.user = this.userSubject.asObservable();
+    }
 
-export interface RedirectAuthenticationResult {
-  status: AuthenticationResultStatus.Redirect;
-}
+    public get userValue(): User {
+        return this.userSubject.value;
+    }
 
-export enum AuthenticationResultStatus {
-  Success,
-  Redirect,
-  Fail
-}
+    login(username: string, password: string) {
+        return this.http.post<any>(`${environment.APIURL}/users/authenticate`, { username, password })
+            .pipe(map(user => {
+                // store user details and jwt token in local storage to keep user logged in between page refreshes
+                localStorage.setItem('user', JSON.stringify(user));
+                this.userSubject.next(user);
+                return user;
+            }));
+    }
 
-export interface IUser {
-  name?: string;
-}
-
-@Injectable({
-  providedIn: 'root'
-})
-export class AuthorizeService {
-  // By default pop ups are disabled because they don't work properly on Edge.
-  // If you want to enable pop up authentication simply set this flag to false.
-
-  private popUpDisabled = true;
-  private userManager: UserManager;
-  private userSubject: BehaviorSubject<IUser | null> = new BehaviorSubject(null);
-
-  public isAuthenticated(): Observable<boolean> {
-    return this.getUser().pipe(map(u => !!u));
-  }
+    register(username: string, password: string) {
+        return this.http.post<any>(`${environment.APIURL}/users/register`, { username, password })
+        .pipe(map(user => {
+            // store user details and jwt token in local storage to keep user logged in between page refreshes
+            localStorage.setItem('user', JSON.stringify(user));
+            this.userSubject.next(user);
+            return user;
+        }));
+    }
 
   public getUser(): Observable<IUser | null> {
     return concat(
@@ -56,10 +53,9 @@ export class AuthorizeService {
   }
 
   public getAccessToken(): Observable<string> {
-    // return from(this.ensureUserManagerInitialized())
-    //   .pipe(mergeMap(() => from(this.userManager.getUser())),
-    //     map(user => user && user.access_token));
-    return of ("");
+    return from(this.ensureUserManagerInitialized())
+      .pipe(mergeMap(() => from(this.userManager.getUser())),
+        map(user => user && user.access_token));
   }
 
   // We try to authenticate the user in three different ways:
@@ -171,24 +167,24 @@ export class AuthorizeService {
   }
 
   private async ensureUserManagerInitialized(): Promise<void> {
-    // if (this.userManager !== undefined) {
-    //   return;
-    // }
+    if (this.userManager !== undefined) {
+      return;
+    }
 
-    // const response = await fetch(ApplicationPaths.ApiAuthorizationClientConfigurationUrl);
-    // if (!response.ok) {
-    //   throw new Error(`Could not load settings for '${ApplicationName}'`);
-    // }
+    const response = await fetch(ApplicationPaths.ApiAuthorizationClientConfigurationUrl);
+    if (!response.ok) {
+      throw new Error(`Could not load settings for '${ApplicationName}'`);
+    }
 
-    // const settings: any = await response.json();
-    // settings.automaticSilentRenew = true;
-    // settings.includeIdTokenInSilentRenew = true;
-    // this.userManager = new UserManager(settings);
+    const settings: any = await response.json();
+    settings.automaticSilentRenew = true;
+    settings.includeIdTokenInSilentRenew = true;
+    this.userManager = new UserManager(settings);
 
-    // this.userManager.events.addUserSignedOut(async () => {
-    //   await this.userManager.removeUser();
-    //   this.userSubject.next(null);
-    // });
+    this.userManager.events.addUserSignedOut(async () => {
+      await this.userManager.removeUser();
+      this.userSubject.next(null);
+    });
   }
 
   private getUserFromStorage(): Observable<IUser> {

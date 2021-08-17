@@ -16,7 +16,7 @@ namespace Tourism.Core.Models
 
         public string ImageUrl { get; set; }
 
-        public virtual ApplicationUser User { get; set; }
+        public virtual User User { get; set; }
 
         public int ForumId { get; set; }
         public virtual Forum Forum { get; set; }

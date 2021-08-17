@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
+using Tourism.Core.Dto.ArticleDto;
 
-
-namespace Tourism.WebApp.ViewModels
+namespace Tourism.Core.Dto.ForumDto
 {
-    public class ForumViewModel
+    public class ForumResponseDto
     {
         public int Id { get; set; }
 
@@ -13,6 +13,6 @@ namespace Tourism.WebApp.ViewModels
 
         public string ImageUrl { get; set; }
 
-        public List<ArticleViewModel> Articles { get; set; }
+        public List<ArticleResponseDto> Articles { get; set; }
     }
 }
