@@ -1,11 +1,17 @@
 <div class="forum-container">
-  <div class="forum-header">
-    <div class="image-title">
 
-    </div>
+  <div class="forum-articles"  *ngIf="loading && forum !== undefined else loading">
+    <app-article class="cards__important-item" *ngFor="let item of forum.articles.slice(0,2)"
+    [article]='item' [important] = 'true'>
+
+   </app-article>
+  </div>
+
+  <div class="forum-header">
+    <h2>Головні новини, Подіїї</h2>
   </div>
   <div  class="forum-articles"  *ngIf="loading && forum !== undefined else loading">
-        <app-article class="cards__item" *ngFor="let item of forum.articles"
+        <app-article class="cards__item" *ngFor="let item of forum.articles.slice(2,forum.articles.length)"
          [article]='item'>
 
         </app-article>

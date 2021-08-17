@@ -10,8 +10,7 @@ export class ArticleComponent implements OnInit {
 
 
   @Input() article: IArticleInput;
-
-  
+  @Input() important: boolean = false;
 
   constructor() { }
 
