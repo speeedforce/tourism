@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { first, take } from 'rxjs/operators';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthenticationService } from '../authorize.service';
+import { matchServerError, SYSTEM_CONTENT } from 'src/content.const';
 
 // The main responsibility of this component is to handle the user's logout process.
 // This is the starting point for the logout process, which is usually initiated when a
@@ -18,6 +19,7 @@ export class LoginComponent implements OnInit {
   loading = false;
   submitted = false;
   error = '';
+  SYSTEM_CONTENT = SYSTEM_CONTENT;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -50,7 +52,7 @@ export class LoginComponent implements OnInit {
     }
 
     this.loading = true;
-    this.authenticationService.login(this.f.username.value, this.f.password.value)
+    this.authenticationService.login(this.f.username.value.toLowerCase(), this.f.password.value)
       .pipe(first())
       .subscribe({
         next: () => {
@@ -59,7 +61,8 @@ export class LoginComponent implements OnInit {
           this.router.navigateByUrl(returnUrl);
         },
         error: error => {
-          this.error = error;
+          console.log(error)
+          this.error = matchServerError(error);
           this.loading = false;
         }
       });

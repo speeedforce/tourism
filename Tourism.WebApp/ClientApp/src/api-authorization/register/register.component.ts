@@ -43,7 +43,7 @@ export class RegisterComponent implements OnInit {
       username: ['', [Validators.required, Validators.email]],
       password: ['',  [
         Validators.required,
-        Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}')
+        Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,15}')
        ]],
       repeatPassword: ['', [Validators.required]]
     }, {

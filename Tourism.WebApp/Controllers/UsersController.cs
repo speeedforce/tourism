@@ -1,5 +1,7 @@
 ﻿
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Tourism.Athorization.Core;
 using Tourism.Core.Authorization;
@@ -27,8 +29,16 @@ namespace Tourism.WebApp.Controllers
         [HttpPost("[action]")]
         public IActionResult Authenticate(AuthenticateRequestDto model)
         {
-            var response = _userService.Authenticate(model);
-            return Ok(response);
+            try
+            {
+                var response = _userService.Authenticate(model);
+                return Ok(response);
+            }
+            catch(AppException ex)
+            {
+                return BadRequest(new { ex.Message });
+            }
+            
         }
 
 
@@ -38,6 +48,11 @@ namespace Tourism.WebApp.Controllers
         {
             try
             {
+                var passwordCheck = new Regex(@"(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,15}");
+
+                if (!passwordCheck.IsMatch(model.Password))
+                    return BadRequest(new { message = "Password invalid" });
+
                 var response = await _userService.Register(model);
                 return Ok(response);
             }
