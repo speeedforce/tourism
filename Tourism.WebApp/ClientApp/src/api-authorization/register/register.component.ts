@@ -12,7 +12,6 @@ function passwordMatchValidator(g: FormGroup) {
      ? null : {'mismatch': true};
 
      g.get('repeatPassword').setErrors(result);
-     console.log(result);
      return result;
 }
 
@@ -66,7 +65,7 @@ export class RegisterComponent implements OnInit {
     }
 
     this.loading = true;
-    this.authenticationService.register(this.f.username.value, this.f.password.value)
+    this.authenticationService.register(this.f.username.value.toLowerCase(), this.f.password.value)
       .pipe(first())
       .subscribe({
         next: () => {
