@@ -8,7 +8,7 @@ using Tourism.Core.Authorization;
 using Tourism.Core.Dto.UserDto;
 using Tourism.Core.Helpers;
 using Tourism.Core.Models;
-
+using static Tourism.Core.Helpers.PasswordValidationAtribute;
 
 namespace Tourism.WebApp.Controllers
 {
@@ -48,11 +48,6 @@ namespace Tourism.WebApp.Controllers
         {
             try
             {
-                var passwordCheck = new Regex(@"(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,15}");
-
-                if (!passwordCheck.IsMatch(model.Password))
-                    return BadRequest(new { message = "Password invalid" });
-
                 var response = await _userService.Register(model);
                 return Ok(response);
             }

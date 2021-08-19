@@ -10,7 +10,7 @@ namespace Tourism.Core.Dto.UserDto
         public string Username { get; set; }
 
         [Required]
-     
+        [PasswordValidationAtribute]
         public string Password { get; set; }
     }
 }

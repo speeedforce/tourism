@@ -4,7 +4,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { first, take } from 'rxjs/operators';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthenticationService } from '../authorize.service';
-import { matchServerError, SYSTEM_CONTENT } from 'src/content.const';
+import { SYSTEM_CONTENT } from 'src/content.const';
+import { IErrorHandler } from 'src/app/types/error';
+
 
 // The main responsibility of this component is to handle the user's logout process.
 // This is the starting point for the logout process, which is usually initiated when a
@@ -18,7 +20,7 @@ export class LoginComponent implements OnInit {
   public loginForm: FormGroup;
   loading = false;
   submitted = false;
-  error = '';
+  errorMessage = '';
   SYSTEM_CONTENT = SYSTEM_CONTENT;
 
   constructor(
@@ -35,7 +37,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
-      username: ['', Validators.required],
+      username: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required]
     });
   }
@@ -60,9 +62,8 @@ export class LoginComponent implements OnInit {
           const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
           this.router.navigateByUrl(returnUrl);
         },
-        error: error => {
-          console.log(error)
-          this.error = matchServerError(error);
+        error: message  => {
+          this.errorMessage = message;
           this.loading = false;
         }
       });

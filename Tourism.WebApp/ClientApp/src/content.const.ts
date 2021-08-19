@@ -48,11 +48,3 @@ export class SYSTEM_CONTENT {
      static ERRORS = ERRORS_TEXT;
 }
 
-export function matchServerError(error: string) {
-    switch(error) {
-        case 'Username already exist. Try to login.':
-            return SYSTEM_CONTENT.ERRORS.EMAIL_DUPLICATE;
-       default:
-           return SYSTEM_CONTENT.ERRORS.INVALID_AUTH;
-    }
-}

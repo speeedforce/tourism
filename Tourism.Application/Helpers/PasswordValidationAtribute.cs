@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace Tourism.Core.Helpers
 {
@@ -21,15 +19,12 @@ namespace Tourism.Core.Helpers
 
             var passwordCheck = new Regex(@"(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,15}");
 
-
-
             var isValidated = passwordCheck.IsMatch(input);
-               
 
             if (isValidated)
                 return null;
 
-            return new ValidationResult("Error1");
+            return new ValidationResult("The Password field is not a valid e-mail address.");
         }
     }
 }

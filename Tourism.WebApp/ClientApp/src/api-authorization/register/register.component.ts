@@ -1,8 +1,9 @@
+import { IErrorHandler } from './../../app/types/error';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { first } from 'rxjs/operators';
-import { matchServerError, SYSTEM_CONTENT } from 'src/content.const';
+import { SYSTEM_CONTENT } from 'src/content.const';
 import { AuthenticationService } from '../authorize.service';
 
 
@@ -73,9 +74,8 @@ export class RegisterComponent implements OnInit {
           const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
           this.router.navigateByUrl(returnUrl);
         },
-        error: error => {
-          console.log(error)
-          this.error = matchServerError(error);
+        error: (message: string) => {
+          this.error = message;
           this.loading = false;
         }
       });
