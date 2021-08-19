@@ -6,8 +6,6 @@ export function generateMenu(): ILink[] {
             { title: "Карти", link: "/maps"},
             { title: "Контакти", link: "/contact"},
             { title: "Архів", link: "/archive"},   
-            { title: "Вхід", link: "/login"},   
-            { title: "Реєстрація", link: "/register"}  
         ];
     } 
 
@@ -19,7 +17,6 @@ export function generateMenu(): ILink[] {
             { title: "Контакти", link: "/contact"},
             { title: "Архів", link: "/archive"}, 
             { title: username, link: '/profile'},  
-            { title: "Вихід", link: "/logout"}  
         ];
     } 
 

@@ -31,6 +31,7 @@ export class CONTENT_TEXT {
 
      static LOGIN = "Вхід";
      static REGISTER = "Зареєструватися";
+     static LOGOUT = "Вихід";
 
      static BOOK = "Прийняти участь";
      static APPROVE = "Підтвердити";
