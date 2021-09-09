@@ -37,7 +37,7 @@ export class CONTENT_TEXT {
      static APPROVE = "Підтвердити";
      static DECLINE = "Відхилити";
 
-     static CREAT = "Створити";
+     static CREATE = "Додати";
      static EDIT = "Змінити";
      static REMOVE = "Видалити";
      static ATTACHED = "Додати вкладення";

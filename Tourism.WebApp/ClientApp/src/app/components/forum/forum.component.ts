@@ -1,7 +1,12 @@
+import { AuthenticationService } from 'src/api-authorization/authorize.service';
+
+import { Observable } from 'rxjs';
+
+import { UserService } from './../../services/user.service';
 import { ForumService } from './../../services/forum.service';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { IArticleInput, IForum } from 'src/app/types/core';
-import { Observable, concat } from 'rxjs';
+import { IArticleInput, IForum, User} from '../../types/core';
+import { SYSTEM_CONTENT } from '../../../content.const';
 
 @Component({
   selector: 'app-forum',
@@ -10,6 +15,8 @@ import { Observable, concat } from 'rxjs';
 })
 export class ForumComponent implements OnInit, OnDestroy {
 
+  SYSTEM_CONTENT = SYSTEM_CONTENT;
+  user: User;
   forum: IForum = {
     id: 0,
     description: '',
@@ -166,7 +173,8 @@ export class ForumComponent implements OnInit, OnDestroy {
     imageUrl: 'assets/pictures/autumn.jpg'
   }
 
-  constructor(private forumService: ForumService) { }
+  constructor(private forumService: ForumService,
+    private authService: AuthenticationService) { }
   
 
   ngOnInit() {
@@ -175,6 +183,9 @@ export class ForumComponent implements OnInit, OnDestroy {
     //   this.forum = item;
     //   this.loading = false;
     // });
+
+    this.user = this.authService.userValue;
+    console.log(this.user);
   }
 
 

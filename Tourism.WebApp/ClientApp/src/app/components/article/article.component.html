@@ -1,4 +1,5 @@
 <div class="article-card" *ngIf='!important else imp' >
+
   <div class="card__image">
     <img [src]="article.imageUrl" >
   </div>
@@ -13,12 +14,21 @@
   <div class="footer">
     <p>{{article.created | date: 'short'}}</p>
     <p>{{article.author}}</p>
+    <div *ngIf="isAdmin">
+      <button class="btn btn-warning mr-2"> {{SYSTEM_CONTENT.CONTENT.EDIT}} </button>
+      <button class="btn btn-danger"> {{SYSTEM_CONTENT.CONTENT.REMOVE}} </button>
+    </div>
   </div>
 </div>
 <ng-template #imp> 
   <div class="article-card-important" >
     <div class="card__title">
       <h3>{{article.title}}</h3>
+      <div *ngIf="isAdmin">
+        <button class="btn btn-warning mr-2"> {{SYSTEM_CONTENT.CONTENT.EDIT}} </button>
+        <button class="btn btn-danger"> {{SYSTEM_CONTENT.CONTENT.REMOVE}} </button>
+      </div>
+      
    </div>
     <div class="card__content">
       <div class="card__image">
@@ -29,6 +39,7 @@
        
       </div> 
     </div>
+    
   </div>
-  
+ 
 </ng-template>
