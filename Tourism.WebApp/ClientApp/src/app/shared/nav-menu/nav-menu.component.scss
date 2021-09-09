@@ -1,0 +1,78 @@
+@import "../colors.scss";
+
+
+html {
+  font-size: 14px;
+}
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.navbar-container {
+  background-color: $base-color;
+  color: $base-color-text;
+  font-size: 16px;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+
+  .nav-link {
+    color: $base-color-text;
+    font-size: 16px;
+  }
+
+  .active {
+    border-bottom: 3px solid $secondary-color!important;
+  }
+
+  .btn-item {
+    display: flex;
+    justify-content: space-between;
+
+    button {
+      min-width: 120px;
+      height: 40px;
+      border-radius: 25px;
+      margin-right: 8px;
+    }
+
+    .login {
+      background: $base-dark;
+      color: $base-color-text;
+     
+    }
+
+    .login:hover {
+      background: $base-color-hover;
+    }
+
+    .register {
+      background: $secondary-dark;
+      color: $base-color-text;
+     
+    }
+
+    .register:hover {
+      background: $secondary-color-hover;
+    }
+
+    .logout {
+      background: $alarm;
+      color: $alarm-text;
+    }
+
+    .logout:hover {
+      background: $alarm-dark;
+    }
+
+  }
+
+
+}
+
+
+a {
+  color: $base-color-text;
+}

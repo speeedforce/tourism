@@ -1,0 +1,34 @@
+<div class="article-card" *ngIf='!important else imp' >
+  <div class="card__image">
+    <img [src]="article.imageUrl" >
+  </div>
+  <div class="card__title">
+      <h5>{{article.title}}</h5>
+  </div>
+  <div class="card__content">
+    <div class="card__text">
+      &emsp;{{article.content}}
+    </div> 
+  </div>
+  <div class="footer">
+    <p>{{article.created | date: 'short'}}</p>
+    <p>{{article.author}}</p>
+  </div>
+</div>
+<ng-template #imp> 
+  <div class="article-card-important" >
+    <div class="card__title">
+      <h3>{{article.title}}</h3>
+   </div>
+    <div class="card__content">
+      <div class="card__image">
+        <img [src]="article.imageUrl" >
+      </div>
+      <div class="card__text">
+        <p> {{article.content}}</p>
+       
+      </div> 
+    </div>
+  </div>
+  
+</ng-template>
