@@ -49,7 +49,7 @@ namespace Tourism.Infrastructure.Services
             var user = _context.Users.SingleOrDefault(x => x.Username == model.Username);
 
             if (user != null)
-                throw new AppException("Username already exist");
+                throw new AppException("Username already exist. Try to login.");
 
             user = new User()
             {

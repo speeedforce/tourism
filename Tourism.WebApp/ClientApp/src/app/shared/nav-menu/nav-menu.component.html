@@ -2,7 +2,7 @@
   <nav
     class="navbar navbar-expand-sm navbar-toggleable-sm navbar-container border-bottom box-shadow">
     <div class="logo">
-      <a [routerLink]="['/']">Запорізький центр спортивного орієнтування</a>
+      <img src='assets//pictures//logo.png' alt="logo">
     </div>
     <div class="navbar-container">
      
@@ -21,21 +21,42 @@
         class="navbar-collapse collapse d-sm-inline-flex justify-content-end"
         [ngClass]="{ show: isExpanded }"
       >
-
-        <ul class="navbar-nav flex-grow" >
-          <li *ngFor="let item of menuItems"
-            class="nav-item"
-            [routerLinkActive]="item.link"
-            [routerLinkActiveOptions]="{ exact: true }"
-          >
-            <a  [class]="href.includes(item.link) ? 'nav-link active' : 'nav-link'" [routerLink]="item.link">{{item.title}}</a>
-          </li>
-        </ul>
-     
+          <ul class="navbar-nav flex-grow" >
+            <li *ngFor="let item of menuItems"
+              class="nav-item"
+              [routerLinkActive]="item.link"
+              [routerLinkActiveOptions]="{ exact: true }"
+            >
+              <a  
+                [class]="href.includes(item.link) ? 'nav-link active' : 'nav-link'" 
+                [routerLink]="item.link">{{item.title}}
+              </a>
+            </li>
+          </ul>
       </div>
 
     </div>
+    <div class="btn-item">
+      
+        <button  *ngIf="!isAuth" class="btn btn-round login" [routerLink]="'/login'"> 
+          {{SYSTEM_CONTENT.CONTENT.LOGIN}} 
 
-   
+        </button>
+
+        <button  *ngIf="!isAuth" class="btn register" [routerLink]="'/register'"> 
+          {{SYSTEM_CONTENT.CONTENT.REGISTER}} 
+
+        </button>
+
+        <div *ngIf="isAuth">
+          <a class='nav-link' [routerLink]= "'/profile'">{{userLink.title}}</a>
+        </div>
+
+        <button  *ngIf="isAuth" class="btn logout" (click)='logout()'> 
+          {{SYSTEM_CONTENT.CONTENT.LOGOUT}} 
+        </button>
+
+
+    </div>
   </nav>
 </header>

@@ -24,7 +24,49 @@ html {
   }
 
   .active {
-    color: $secondary-color!important;
+    border-bottom: 3px solid $secondary-color!important;
+  }
+
+  .btn-item {
+    display: flex;
+    justify-content: space-between;
+
+    button {
+      min-width: 120px;
+      height: 40px;
+      border-radius: 25px;
+      margin-right: 8px;
+    }
+
+    .login {
+      background: $base-dark;
+      color: $base-color-text;
+     
+    }
+
+    .login:hover {
+      background: $base-color-hover;
+    }
+
+    .register {
+      background: $secondary-dark;
+      color: $base-color-text;
+     
+    }
+
+    .register:hover {
+      background: $secondary-color-hover;
+    }
+
+    .logout {
+      background: $alarm;
+      color: $alarm-text;
+    }
+
+    .logout:hover {
+      background: $alarm-dark;
+    }
+
   }
 
 

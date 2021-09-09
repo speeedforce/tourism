@@ -5,8 +5,24 @@ import { Component } from '@angular/core';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
   host: {
-      class:'page-styles'
+    class: 'page-styles'
   }
 })
 export class HomeComponent {
+
+  time: Date;
+
+
+  constructor() {
+    this.getCurrentDate();
+  }
+
+
+
+  getCurrentDate() {
+    setInterval(() => {
+      this.time = new Date(); 
+
+    }, 1000);
+  }
 }

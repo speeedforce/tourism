@@ -4,6 +4,22 @@ import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
 import { AuthenticationService } from './../authorize.service';
+import { SYSTEM_CONTENT } from 'src/content.const';
+import { IErrorHandler } from 'src/app/types/error';
+
+export function matchServerError(error: string) {
+    switch(error) {
+        case 'Username already exist. Try to login.':
+            return SYSTEM_CONTENT.ERRORS.EMAIL_DUPLICATE;
+        case "The Password field is not a valid e-mail address.": 
+            return SYSTEM_CONTENT.ERRORS.PASSWOWRD_INVALID;
+        case "The Username field is not a valid e-mail address.":
+            return SYSTEM_CONTENT.ERRORS.EMAIL_INVALID;
+       default:
+           return SYSTEM_CONTENT.ERRORS.INVALID_AUTH;
+    }
+}
+
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
@@ -16,7 +32,11 @@ export class ErrorInterceptor implements HttpInterceptor {
                 this.authenticationService.logout();
             }
 
-            const error = err.error.message || err.statusText;
+            const message = (err.error as IErrorHandler[])
+                            .map(e => matchServerError(e.message))
+                            .reduce((prev, curr) => prev + '\n' + curr);
+
+            const error = message || err.statusText;
             return throwError(error);
         }))
     }

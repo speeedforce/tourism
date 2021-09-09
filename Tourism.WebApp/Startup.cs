@@ -1,12 +1,16 @@
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Net.Mime;
 using System.Text.Json.Serialization;
 using Tourism.Athorization.Core;
 using Tourism.Core;
@@ -50,11 +54,28 @@ namespace Tourism.WebApp
                                   });
             });
 
-            services.AddControllers().AddJsonOptions(x =>
-            {
-                // serialize enums as strings in api responses (e.g. Role)
-                x.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
-            });
+            services.AddControllers()
+                .AddJsonOptions(x =>
+                {
+                    x.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+                })
+                .ConfigureApiBehaviorOptions(options =>
+                 {
+                     options.InvalidModelStateResponseFactory = context =>
+                     {
+                         var allErrors = context.ModelState.Values.SelectMany(v => v.Errors.Select(b => new ErrorViewModel()
+                         {
+                             Message = b.ErrorMessage,
+                             Status = (int)HttpStatusCode.BadRequest
+
+                         }));
+                         var result = new BadRequestObjectResult(allErrors);
+
+                         // TODO: add `using System.Net.Mime;` to resolve MediaTypeNames
+                         result.ContentTypes.Add(MediaTypeNames.Application.Json);
+                         return result;
+                     };
+                 }); ;
 
 
 
@@ -67,17 +88,6 @@ namespace Tourism.WebApp
 
             services.AddScoped<IForumService, ForumService>();
             services.AddScoped<IArticleService, ArticleService>();
-
-
-            services.AddRazorPages(options =>
-            {
-                options.Conventions.AuthorizePage("/SecurePage");
-            });
-            // In production, the Angular files will be served from this directory
-            services.AddSpaStaticFiles(configuration =>
-            {
-                configuration.RootPath = "ClientApp/dist";
-            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -115,23 +125,8 @@ namespace Tourism.WebApp
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller}/{action=Index}/{id?}");
-                endpoints.MapRazorPages();
+              
             });
-
-            app.UseSpa(spa =>
-            {
-                // To learn more about options for serving an Angular SPA from ASP.NET Core,
-                // see https://go.microsoft.com/fwlink/?linkid=864501
-
-                spa.Options.SourcePath = "ClientApp";
-
-                if (env.IsDevelopment())
-                {
-                    spa.UseAngularCliServer(npmScript: "start");
-                }
-            });
-
-
         }
 
         private void createTestUsers(ApplicationDbContext context)

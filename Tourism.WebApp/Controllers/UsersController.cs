@@ -1,12 +1,14 @@
 ﻿
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Tourism.Athorization.Core;
 using Tourism.Core.Authorization;
 using Tourism.Core.Dto.UserDto;
 using Tourism.Core.Helpers;
 using Tourism.Core.Models;
-
+using static Tourism.Core.Helpers.PasswordValidationAtribute;
 
 namespace Tourism.WebApp.Controllers
 {
@@ -27,8 +29,16 @@ namespace Tourism.WebApp.Controllers
         [HttpPost("[action]")]
         public IActionResult Authenticate(AuthenticateRequestDto model)
         {
-            var response = _userService.Authenticate(model);
-            return Ok(response);
+            try
+            {
+                var response = _userService.Authenticate(model);
+                return Ok(response);
+            }
+            catch(AppException ex)
+            {
+                return BadRequest(new { ex.Message });
+            }
+            
         }
 
 
@@ -43,7 +53,7 @@ namespace Tourism.WebApp.Controllers
             }
             catch(AppException ex)
             {
-                return BadRequest(ex);
+                return BadRequest(new { ex.Message });
             }   
         }
 
