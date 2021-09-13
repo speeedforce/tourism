@@ -46,7 +46,7 @@ namespace Tourism.Infrastructure
         public async Task Delete(int id)
         {
             var item = GetById(id);
-            _context.Remove(item);
+            _context.Articles.Remove(item);
             await _context.SaveChangesAsync();
         }
 

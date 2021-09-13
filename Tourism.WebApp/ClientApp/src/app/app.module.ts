@@ -1,3 +1,5 @@
+import { ReactiveFormsModule } from '@angular/forms';
+import { ArticleEditorComponent } from './components/article-editor/article-editor.component';
 
 import { LoginComponent } from './../api-authorization/login/login.component';
 import { BrowserModule } from '@angular/platform-browser';
@@ -24,7 +26,8 @@ import { JwtInterceptor } from 'src/api-authorization/helpers/jwt.interceptor';
     CounterComponent,
     FetchDataComponent,
     ForumComponent,
-    ArticleComponent
+    ArticleComponent,
+    ArticleEditorComponent
    ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -32,6 +35,7 @@ import { JwtInterceptor } from 'src/api-authorization/helpers/jwt.interceptor';
     ApiAuthorizationModule,
     AppRoutingModule,
     RouterModule,
+    ReactiveFormsModule
    
   
   ],

@@ -1,3 +1,9 @@
+.forum-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
 .forum-articles {
   display: flex;
   flex-wrap: wrap;
@@ -11,6 +17,16 @@
   h2 {
     margin: 1.5rem;
   }
+}
+
+.admin-panel {
+  display: flex;
+  justify-content: center;
+  margin-right: 1.5rem;
+  padding: 8px;
+  border-radius: 25px;
+
+ 
 }
 
 .cards__item {

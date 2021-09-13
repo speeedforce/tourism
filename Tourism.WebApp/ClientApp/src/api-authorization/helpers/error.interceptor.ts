@@ -8,6 +8,7 @@ import { SYSTEM_CONTENT } from 'src/content.const';
 import { IErrorHandler } from 'src/app/types/error';
 
 export function matchServerError(error: string) {
+    console.log(error)
     switch(error) {
         case 'Username already exist. Try to login.':
             return SYSTEM_CONTENT.ERRORS.EMAIL_DUPLICATE;
@@ -16,7 +17,7 @@ export function matchServerError(error: string) {
         case "The Username field is not a valid e-mail address.":
             return SYSTEM_CONTENT.ERRORS.EMAIL_INVALID;
        default:
-           return SYSTEM_CONTENT.ERRORS.INVALID_AUTH;
+           return error;
     }
 }
 

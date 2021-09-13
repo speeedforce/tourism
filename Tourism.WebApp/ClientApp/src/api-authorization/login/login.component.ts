@@ -5,7 +5,6 @@ import { first, take } from 'rxjs/operators';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthenticationService } from '../authorize.service';
 import { SYSTEM_CONTENT } from 'src/content.const';
-import { IErrorHandler } from 'src/app/types/error';
 
 
 // The main responsibility of this component is to handle the user's logout process.
