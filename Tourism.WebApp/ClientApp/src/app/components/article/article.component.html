@@ -15,8 +15,8 @@
     <p>{{article.created | date: 'short'}}</p>
     <!-- <p>{{article.author}}</p> -->
     <div *ngIf="isAdmin">
-      <button class="btn btn-warning mr-2"> {{SYSTEM_CONTENT.CONTENT.EDIT}} </button>
-      <button class="btn btn-danger"> {{SYSTEM_CONTENT.CONTENT.REMOVE}} </button>
+      <button class="btn btn-warning mr-2"  [routerLink]="['/admin/article', article.id]"> {{SYSTEM_CONTENT.CONTENT.EDIT}} </button>
+      <button class="btn btn-danger" (click)="onDelete()"> {{SYSTEM_CONTENT.CONTENT.REMOVE}} </button>
     </div>
   </div>
 </div>
@@ -25,8 +25,8 @@
     <div class="card__title">
       <h3>{{article.title}}</h3>
       <div *ngIf="isAdmin">
-        <button class="btn btn-warning mr-2"> {{SYSTEM_CONTENT.CONTENT.EDIT}} </button>
-        <button class="btn btn-danger"> {{SYSTEM_CONTENT.CONTENT.REMOVE}} </button>
+        <button class="btn btn-warning mr-2" [routerLink]="['/admin/article', article.id]"> {{SYSTEM_CONTENT.CONTENT.EDIT}} </button>
+        <button class="btn btn-danger" (click)="onDelete()"> {{SYSTEM_CONTENT.CONTENT.REMOVE}} </button>
       </div>
       
    </div>

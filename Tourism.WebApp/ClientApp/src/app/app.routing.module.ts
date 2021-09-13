@@ -31,6 +31,12 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     data: { roles: [Role.Admin] }
   },
+  { 
+    path: 'admin/article/:id', 
+    component: ArticleEditorComponent, 
+    canActivate: [AuthGuard],
+    data: { roles: [Role.Admin] }
+  },
   // otherwise redirect to home
   { path: '**', redirectTo: '' }
 

@@ -75,6 +75,7 @@ export class CONTENT_TEXT {
 
 
      static SUCCESS = "Дія успішно виконена"
+     static CONFIRM_WARNING = "Ви підтверджуєте дію?"
 }
 
 

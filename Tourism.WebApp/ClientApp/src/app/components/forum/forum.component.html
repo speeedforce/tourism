@@ -7,6 +7,7 @@
     <app-article class="cards__important-item" *ngFor="let item of forum.articles.slice(0,2)"
         [article]='item' 
         [isAdmin]='user.role === "Admin"'
+        (delete)='delete($event)'
         [important] = 'true'>
 
    </app-article>
@@ -18,6 +19,7 @@
   <div  class="forum-articles"  *ngIf="loading && forum !== undefined else loading">
         <app-article class="cards__item" *ngFor="let item of forum.articles.slice(2,forum.articles.length)"
           [article]='item'
+          (delete)='delete($event)'
           [isAdmin]='user.role === "Admin"'>
 
         </app-article>

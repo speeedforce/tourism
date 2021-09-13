@@ -21,8 +21,8 @@ export class ArticleService {
     return this.http.post<IArticle>(`${environment.APIURL}/article`, articleInput);
   }
 
-  edit(editInput: IArticleInput): Observable<IArticle> {
-    return this.http.put<IArticle>(`${environment.APIURL}/article`, editInput);
+  edit(id: number, value: IArticleInput): Observable<IArticle> {
+    return this.http.put<IArticle>(`${environment.APIURL}/article/${id}`, value);
   }
 
   delete(id: number): Observable<boolean> {

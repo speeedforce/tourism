@@ -59,7 +59,7 @@ namespace Tourism.WebApp.Controllers
                     return NotFound(
                         new ErrorViewModel { Message = $"Article doesn't find with Id = {id}" });
                 else
-                    return Ok(new {  item = item });
+                    return Ok(item);
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -125,11 +125,11 @@ namespace Tourism.WebApp.Controllers
         // DELETE api/<ArticleController>/5
         [Authorize(Role.Admin)]
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
             try
             {
-                Task item =  _articleService.Delete(id);
+                await _articleService.Delete(id);
 
                 return Ok(id);
             }
