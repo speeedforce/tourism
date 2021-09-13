@@ -1,12 +1,13 @@
 <div class="forum-container">
   <div class='admin-panel' *ngIf='user.role === "Admin"'>
-    <button class="btn btn-success">{{SYSTEM_CONTENT.CONTENT.CREATE}}</button>
+    <button class="btn btn-success"
+            routerLink="/admin/article">{{SYSTEM_CONTENT.CONTENT.CREATE}}</button>
   </div>
   <div class="forum-articles"  *ngIf="loading && forum !== undefined else loading">
     <app-article class="cards__important-item" *ngFor="let item of forum.articles.slice(0,2)"
-    [article]='item' 
-    [isAdmin]='user.role === "Admin"'
-    [important] = 'true'>
+        [article]='item' 
+        [isAdmin]='user.role === "Admin"'
+        [important] = 'true'>
 
    </app-article>
   </div>
@@ -16,8 +17,8 @@
   </div>
   <div  class="forum-articles"  *ngIf="loading && forum !== undefined else loading">
         <app-article class="cards__item" *ngFor="let item of forum.articles.slice(2,forum.articles.length)"
-         [article]='item'
-         [isAdmin]='user.role === "Admin"'>
+          [article]='item'
+          [isAdmin]='user.role === "Admin"'>
 
         </app-article>
   </div>

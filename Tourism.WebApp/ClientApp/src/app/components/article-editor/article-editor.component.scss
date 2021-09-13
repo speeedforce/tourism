@@ -1,0 +1,28 @@
+.article-editor-content {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+
+    label {
+        font-weight: 500;
+    }
+
+    form {
+        width: 680px;
+    }
+    
+    textarea {
+        resize: none;
+        height: 240px;
+    }
+
+    button {
+        margin-right: 12px;
+        width: 240px;
+    }
+
+    .attachment-panel {
+        display: flex;
+        justify-content: space-between;
+    }
+}

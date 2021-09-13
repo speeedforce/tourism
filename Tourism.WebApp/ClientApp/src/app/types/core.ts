@@ -49,7 +49,6 @@ export interface IArticleInput {
     title: string;
     content: string;
     created: string;
-    imageUrl: string;
-    author: string;
+    imageUrl    : string;
 }
 
