@@ -22,7 +22,6 @@ using Tourism.Infrastructure.Services;
 using Tourism.Infrastructure.Services.Authorization;
 using Tourism.Server.Services;
 using Tourism.WebApp.Authorization;
-using BCryptNet = BCrypt.Net.BCrypt;
 
 namespace Tourism.WebApp
 {
@@ -144,38 +143,13 @@ namespace Tourism.WebApp
 
                 spa.Options.SourcePath = "ClientApp";
 
-                if (env.IsDevelopment())
-                {
-                    spa.UseAngularCliServer(npmScript: "start");
-                }
+                //if (env.IsDevelopment())
+                //{
+                    spa.UseProxyToSpaDevelopmentServer("http://tourism.angular.app:4200");
+                //}
             });
         }
 
-        private void createTestUsers(ApplicationDbContext context)
-        {
-            // add hardcoded test users to db on startup
-            var testUsers = new List<User>
-            {
-                new User { Id = 1, FirstName = "Admin", LastName = "User", Username = "admin@gmail.com", PasswordHash = BCryptNet.HashPassword("Admin1111"), Role = Role.Admin },
-                new User { Id = 2, FirstName = "Normal", LastName = "User", Username = "user@gmail.com", PasswordHash = BCryptNet.HashPassword("User1111"), Role = Role.User }
-            };
-            context.Users.AddRange(testUsers);
-            context.SaveChanges();
-        }
-
-        private void seedForum(ApplicationDbContext context)
-        {
-            var forum = new Forum()
-            {
-                ImageUrl = "",
-                Title = "Default",
-                Description = "Default Description",
-                Articles = new List<Article>(),
-                Created = System.DateTime.Now
-            };
-
-            context.Forums.Add(forum);
-            context.SaveChanges();
-        }
+      
     }
 }

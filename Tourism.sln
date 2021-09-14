@@ -20,6 +20,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tourism.Core", "Tourism.App
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tourism.WebApp", "Tourism.WebApp\Tourism.WebApp.csproj", "{9920C47F-E81D-4CE7-AF03-18DEFA2B8AE0}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{66907B83-A8EE-436B-B58B-09D11A5644DA}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{87D7CE41-1B41-49F9-89E7-CE11DCCA476E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -42,6 +46,10 @@ Global
 		{9920C47F-E81D-4CE7-AF03-18DEFA2B8AE0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9920C47F-E81D-4CE7-AF03-18DEFA2B8AE0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9920C47F-E81D-4CE7-AF03-18DEFA2B8AE0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{87D7CE41-1B41-49F9-89E7-CE11DCCA476E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{87D7CE41-1B41-49F9-89E7-CE11DCCA476E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{87D7CE41-1B41-49F9-89E7-CE11DCCA476E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{87D7CE41-1B41-49F9-89E7-CE11DCCA476E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

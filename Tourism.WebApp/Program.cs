@@ -2,6 +2,7 @@ using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 
 using Microsoft.Extensions.Hosting;
+using Tourism.Infrastructure;
 
 namespace Tourism.WebApp
 {
@@ -14,6 +15,7 @@ namespace Tourism.WebApp
             CreateWebHostBuilder(args)
                 // build the web host
                 .Build()
+                .MigrateDatabase<ApplicationDbContext>()
                 // and run the web host, i.e. your web application
                 .Run();
         }
