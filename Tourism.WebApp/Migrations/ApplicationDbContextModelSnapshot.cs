@@ -105,6 +105,16 @@ namespace Tourism.WebApp.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Forums");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Created = new DateTime(2021, 9, 17, 13, 18, 2, 420, DateTimeKind.Local).AddTicks(87),
+                            Description = "Default Description",
+                            ImageUrl = "",
+                            Title = "Default"
+                        });
                 });
 
             modelBuilder.Entity("Tourism.Core.Models.User", b =>
@@ -132,6 +142,26 @@ namespace Tourism.WebApp.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            FirstName = "Admin",
+                            LastName = "User",
+                            PasswordHash = "$2a$11$Ws37Y2uyUIg1Hx1/ANezyu8ZbYAaDVRfjgYI7spl4gjp1tpdod1D.",
+                            Role = 0,
+                            Username = "admin@gmail.com"
+                        },
+                        new
+                        {
+                            Id = 2L,
+                            FirstName = "Normal",
+                            LastName = "User",
+                            PasswordHash = "$2a$11$wC9mpcMhbs/AlBO1/zmuZe1EdNDvd0WAnf5C105jOAH61l74EEH4S",
+                            Role = 1,
+                            Username = "user@gmail.com"
+                        });
                 });
 
             modelBuilder.Entity("Tourism.Core.Models.Article", b =>

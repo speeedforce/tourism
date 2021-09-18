@@ -143,10 +143,10 @@ namespace Tourism.WebApp
 
                 spa.Options.SourcePath = "ClientApp";
 
-                //if (env.IsDevelopment())
-                //{
-                    spa.UseProxyToSpaDevelopmentServer("http://tourism.angular.app:4200");
-                //}
+                if (env.IsDevelopment())
+                {
+                    spa.UseProxyToSpaDevelopmentServer("http://localhost:4200");
+                }
             });
         }
 

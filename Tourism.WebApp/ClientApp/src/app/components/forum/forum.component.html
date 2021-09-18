@@ -3,8 +3,8 @@
     <button class="btn btn-success"
             routerLink="/admin/article">{{SYSTEM_CONTENT.CONTENT.CREATE}}</button>
   </div>
-  <div class="forum-articles"  *ngIf="loading && forum !== undefined else loading">
-    <app-article class="cards__important-item" *ngFor="let item of forum.articles.slice(0,2)"
+  <div class="forum-articles"  *ngIf="loading && forum !== null && forum !== undefined else loading">
+    <app-article class="cards__important-item" *ngFor="let item of forum.articles?.slice(0,2)"
         [article]='item' 
         [isAdmin]='user?.role === "Admin"'
         (delete)='delete($event)'
@@ -16,8 +16,8 @@
   <div class="forum-header">
     <h2>Головні новини, Подіїї</h2>
   </div>
-  <div  class="forum-articles"  *ngIf="loading && forum !== undefined else loading">
-        <app-article class="cards__item" *ngFor="let item of forum.articles.slice(2,forum.articles.length)"
+  <div  class="forum-articles"  *ngIf="loading && forum !== null && forum !== undefined else loading">
+        <app-article class="cards__item" *ngFor="let item of forum.articles?.slice(2,forum.articles.length)"
           [article]='item'
           (delete)='delete($event)'
           [isAdmin]='user?.role === "Admin"'>

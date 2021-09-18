@@ -15,6 +15,7 @@ namespace Tourism.Infrastructure
                    new User { Id = 2, FirstName = "Normal", LastName = "User", Username = "user@gmail.com", PasswordHash = BCryptNet.HashPassword("User1111"), Role = Role.User }
             );
 
+            
             modelBuilder.Entity<Forum>().HasData(
                 new Forum()
                 {
@@ -26,7 +27,6 @@ namespace Tourism.Infrastructure
                     Id = 1,
                 }
             );
-
         }
     }
 }

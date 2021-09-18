@@ -1,4 +1,3 @@
-
 version: '3.4'
 
 services:
@@ -24,9 +23,9 @@ services:
     image: postgres:12.3
     #    This folder tell docker compose, where postgres data will be stored, before ":" - local folder, after - in the container
     volumes:
-      - /psqldata:/var/lib/postgresql/data
+      - ./postgres-data:/var/lib/postgresql/data
     ports:
-      - "6543:5432"
+      - "5432:5432"
     restart: unless-stopped
     environment:
       POSTGRES_DB: 'tourism-db-dev'

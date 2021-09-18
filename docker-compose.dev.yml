@@ -1,4 +1,3 @@
-
 version: '3.4'
 
 services:
@@ -6,9 +5,9 @@ services:
     image: ${DOCKER_REGISTRY-}tourismserver
     build:
       context: .
-      dockerfile: Tourism.WebApp/Dockerfile
-    ports:
-      - "5000:5000"
+      dockerfile: Tourism.WebApp/Dockerfile.dev
+      args:
+        - skip_client_build=true
     depends_on:
       - postgress_db
     entrypoint: ["/usr/local/bin/wait-for-it.sh", "tourism-db-dev:5432", "--", "dotnet", "Tourism.WebApp.dll"]
@@ -19,14 +18,15 @@ services:
       DB_PORT: 5432
       DB_NAME: 'tourism-db-dev'
 
+
   postgress_db:
     container_name: postgress_db
     image: postgres:12.3
     #    This folder tell docker compose, where postgres data will be stored, before ":" - local folder, after - in the container
     volumes:
-      - /psqldata:/var/lib/postgresql/data
+      - ./postgres-data:/var/lib/postgresql/store
     ports:
-      - "6543:5432"
+      - "5432:5432"
     restart: unless-stopped
     environment:
       POSTGRES_DB: 'tourism-db-dev'
@@ -41,8 +41,6 @@ services:
     ports:
       - "4200:4200"
       - "49153:49153"
-    depends_on:
-      - tourism.webapp
     volumes:
       - ./Tourism.WebApp/ClientApp:/app
 

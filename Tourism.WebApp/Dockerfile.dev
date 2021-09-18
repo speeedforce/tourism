@@ -1,0 +1,28 @@
+FROM mcr.microsoft.com/dotnet/aspnet:5.0 AS base
+WORKDIR /app
+EXPOSE 5000
+ENV ASPNETCORE_URLS=http://+:5000
+
+FROM node:14.17-alpine AS client
+ARG skip_client_build=false 
+WORKDIR /app 
+COPY Tourism.WebApp.Docker/ClientApp . 
+RUN [[ ${skip_client_build} = true ]] && echo "Skipping npm install" || npm install 
+RUN [[ ${skip_client_build} = true ]] && mkdir dist || npm run-script build
+
+
+FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
+WORKDIR /src
+COPY ["Tourism.WebApp/Tourism.WebApp.csproj", "Tourism.WebApp/"]
+COPY ["Tourism.Application/Tourism.Core.csproj", "Tourism.Application/"]
+COPY ["Tourism.Infrastructure/Tourism.Infrastructure.csproj", "Tourism.Infrastructure/"]
+RUN dotnet restore "Tourism.WebApp/Tourism.WebApp.csproj"
+COPY . .
+WORKDIR "/src/Tourism.WebApp"
+RUN dotnet build "Tourism.WebApp.csproj" -c Release -o /app/build
+
+FROM build AS publish
+WORKDIR /app
+COPY --from=publish /app/publish .
+COPY --from=client /app/dist /app/dist
+RUN dotnet publish "Tourism.WebApp.csproj" -c Release -o /app/publish
