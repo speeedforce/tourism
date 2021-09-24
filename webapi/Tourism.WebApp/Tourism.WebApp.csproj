@@ -27,7 +27,6 @@
   </ItemGroup>
   
   <ItemGroup>
-    <ProjectReference Include="..\Tourism.Application\Tourism.Core.csproj" />
     <ProjectReference Include="..\Tourism.Infrastructure\Tourism.Infrastructure.csproj" />
   </ItemGroup>
 </Project>
