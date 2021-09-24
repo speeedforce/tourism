@@ -2,7 +2,6 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -25,9 +24,9 @@ using Tourism.WebApp.Authorization;
 
 namespace Tourism.WebApp
 {
-    public class Startup
+    sealed public class Startup
     {
-        public IConfiguration Configuration { get; }
+        private IConfiguration Configuration { get; }
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -35,7 +34,7 @@ namespace Tourism.WebApp
 
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public virtual void ConfigureServices(IServiceCollection services)
+        public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ApplicationDbContext>(options =>
                options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection"),
@@ -87,16 +86,10 @@ namespace Tourism.WebApp
 
             services.AddScoped<IForumService, ForumService>();
             services.AddScoped<IArticleService, ArticleService>();
-
-
-            services.AddSpaStaticFiles(configuration =>
-            {
-                configuration.RootPath = "ClientApp/dist";
-            });                         
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public virtual void Configure(IApplicationBuilder app, IWebHostEnvironment env, ApplicationDbContext context)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ApplicationDbContext context)
         {
             //this.createTestUsers(context);
 
@@ -112,13 +105,6 @@ namespace Tourism.WebApp
                 app.UseHsts();
             }
 
-            if (!env.IsDevelopment())
-            {
-                app.UseSpaStaticFiles();
-            }
-
-            //seedForum(context);
-          
             app.UseRouting();
             app.UseCors();
             // global error handler
@@ -129,27 +115,8 @@ namespace Tourism.WebApp
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller}/{action=Index}/{id?}");
-              
-            });
-
-
-            app.UseSpa(spa =>
-            {
-                // To learn more about options for serving an Angular SPA from ASP.NET Core,
-                // see https://go.microsoft.com/fwlink/?linkid=864501
-
-                spa.Options.SourcePath = "ClientApp";
-
-                if (env.IsDevelopment())
-                {
-                    spa.UseProxyToSpaDevelopmentServer("http://localhost:4200");
-                }
+                endpoints.MapControllerRoute(name: "default", "{controller}/{action=Index}/{id?}");
             });
         }
-
-      
     }
 }
