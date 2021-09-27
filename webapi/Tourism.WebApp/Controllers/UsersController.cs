@@ -70,6 +70,10 @@ namespace Tourism.WebApp.Controllers
         {
             // only admins can access other user records
             var currentUser = (User)HttpContext.Items["User"];
+
+            if (currentUser == null)
+                return Unauthorized(new {message = "Unauthorized"});
+            
             if (id != currentUser.Id && currentUser.Role != Role.Admin)
                 return Unauthorized(new { message = "Unauthorized" });
 
