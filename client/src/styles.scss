@@ -1,0 +1,16 @@
+/* You can add global styles to this file, and also import other style files */
+
+/* Provide sufficient contrast against white background */
+
+.page-styles {
+  display: flex;
+  justify-content: stretch;
+  width: 100%;
+}
+
+.main-image{
+  img {
+    width: 100%;
+  }
+}
+
