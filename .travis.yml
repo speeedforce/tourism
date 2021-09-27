@@ -19,3 +19,17 @@ after_success:
   - docker push speedforce7/tourism-client
   - docker push speedforce7/tourism-nginx
   - docker push speedforce7/tourism-api
+
+
+
+deploy:
+  provider: elasticbeanstalk
+  region: "us-east-2"
+  app: "tourism-app"
+  env: "Tourismapp-env"
+  bucket_name: "elasticbeanstalk-us-east-2-306483622823"
+  bucket_path: "tourism-app"
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: $AWS_SECRET_KEY
