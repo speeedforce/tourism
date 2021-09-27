@@ -4,11 +4,6 @@ language: generic
 services:
   - docker
 
-before_install:
-  - docker build -t speedforce7/angular-test -f ./client/Dockerfile.dev ./client
-script:
-  - docker run -e CI=true speedforce7/angular-test npm run testcov
-
 after_success:
   - docker build -t speedforce7/tourism-client ./client
   - docker build -t speedforce7/tourism-nginx ./nginx
