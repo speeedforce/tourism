@@ -47,6 +47,8 @@ namespace Tourism.WebApp.Controllers
            
         }
 
+       
+
         // GET api/<ArticleController>/5
         [HttpGet("{id}")]
         public IActionResult Get(int id)

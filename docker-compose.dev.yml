@@ -1,48 +1,53 @@
 version: '3.4'
-
 services:
-  tourism.webapp:
-    image: ${DOCKER_REGISTRY-}tourismserver
-    build:
-      context: .
-      dockerfile: Tourism.WebApp/Dockerfile.dev
-      args:
-        - skip_client_build=true
-    depends_on:
-      - postgress_db
-    entrypoint: ["/usr/local/bin/wait-for-it.sh", "tourism-db-dev:5432", "--", "dotnet", "Tourism.WebApp.dll"]
-    environment:
-      DB_USER: 'postgres'
-      DB_PASSWORD: 'postgres'
-      DB_HOST: 'postgress_db'
-      DB_PORT: 5432
-      DB_NAME: 'tourism-db-dev'
-
-
-  postgress_db:
-    container_name: postgress_db
-    image: postgres:12.3
-    #    This folder tell docker compose, where postgres data will be stored, before ":" - local folder, after - in the container
-    volumes:
-      - ./postgres-data:/var/lib/postgresql/store
-    ports:
-      - "5432:5432"
-    restart: unless-stopped
+  postgres:
+    image: 'postgres:latest'
     environment:
       POSTGRES_DB: 'tourism-db-dev'
-      POSTGRES_PASSWORD: 'postgres'
+      POSTGRES_PASSWORD: 'postgres_password'
       POSTGRES_USER: 'postgres'
-
-  tourism.angular:
-    image: ${DOCKER_REGISTRY-}tourismangularapp
-    build:
-      context: .
-      dockerfile: Tourism.WebApp/ClientApp/Dockerfile
-    ports:
-      - "4200:4200"
-      - "49153:49153"
     volumes:
-      - ./Tourism.WebApp/ClientApp:/app
+      - ./postgres-data:/var/lib/postgresql/store
+    # ports:
+    #   - "9999:5432"
+  nginx:
+    depends_on:
+      - api
+      - client
+    restart: always
+    build:
+      dockerfile: Dockerfile
+      context: ./nginx
+    ports:
+      - "8888:80"
+  api:
+    image: ${DOCKER_REGISTRY-}tourism-api
+    build:
+      context: ./webapi
+      dockerfile: Dockerfile.dev
+    depends_on:
+      - postgres
+    entrypoint: ["/usr/local/bin/wait-for-it.sh", "postgres:5432", "--", "dotnet", "Tourism.WebApp.dll"]
+    environment:
+      - PGUSER=postgres
+      - PGHOST=postgres
+      - PGDATABASE=tourism-db-dev
+      - PGPASSWORD=postgres_password
+      - PGPORT=5432
+      - ASPNETCORE_ENVIRONMENT=Development
+    # ports:
+    #   - "6666:5000"
+  client:
+    stdin_open: true
+    # image: ${DOCKER_REGISTRY-}tourism-client
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    # ports:
+    #   - "8888:3000"
+    volumes:
+      - /home/node/app/node_modules
+      - ./client:/home/node/app
 
 
    

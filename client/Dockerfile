@@ -1,12 +1,15 @@
-FROM node:14.17-alpine AS client
-EXPOSE 4200 49153
+FROM node:alpine AS client
+
 USER node
+RUN mkdir -p /home/node/app
 
-RUN mkdir /home/node/.npm-global
-ENV PATH=/home/node/.npm-global/bin:$PATH
-ENV NPM_CONFIG_PREFIX=/home/node/.npm-global
+WORKDIR /home/node/app
+COPY --chown=node:node ./package.json package-lock.json ./
+RUN npm install
+COPY --chown=node:node ./ ./
+RUN npm run build
 
-RUN npm install -g @angular/cli@12.2.5
-
-WORKDIR /app
-CMD ["ng", "serve", "--port", "4200", "--host", "0.0.0.0", "--disable-host-check", "--poll", "2000"]
+FROM nginx
+EXPOSE 3000
+COPY ./nginx/default.conf /etc/nginx/conf.d/default.conf
+COPY --from=client /home/node/app/dist /usr/share/nginx/html

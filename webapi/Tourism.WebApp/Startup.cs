@@ -1,12 +1,14 @@
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Net.Mime;
@@ -36,6 +38,7 @@ namespace Tourism.WebApp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            Debug.WriteLine(Configuration.GetConnectionString("DefaultConnection"));
             services.AddDbContext<ApplicationDbContext>(options =>
                options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection"),
                b => b.MigrationsAssembly("Tourism.WebApp")));
@@ -47,7 +50,10 @@ namespace Tourism.WebApp
                                   builder =>
                                   {
                                       builder.AllowAnyHeader();
-                                      builder.WithOrigins("http://localhost:4200");
+                                      builder.WithOrigins("http://localhost:80");
+                                      builder.WithOrigins("http://client:3000");
+                                      builder.WithOrigins("http://localhost:3000");
+                                      builder.WithOrigins("http://localhost:8888");
                                       builder.AllowAnyMethod();
                                   });
             });
@@ -104,6 +110,8 @@ namespace Tourism.WebApp
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+            
+           
 
             app.UseRouting();
             app.UseCors();

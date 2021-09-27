@@ -14,6 +14,7 @@ namespace Tourism.WebApp
             // create the web host builder
             CreateWebHostBuilder(args)
                 // build the web host
+                
                 .Build()
                 .MigrateDatabase<ApplicationDbContext>()
                 // and run the web host, i.e. your web application
@@ -26,7 +27,8 @@ namespace Tourism.WebApp
                 .ConfigureWebHostDefaults(x =>
                 {
                     x.UseStartup<Startup>();
-                
+
+
                 });
     }
 }

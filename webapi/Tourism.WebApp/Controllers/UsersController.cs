@@ -76,6 +76,13 @@ namespace Tourism.WebApp.Controllers
             var user = _userService.GetById(id);
             return Ok(user);
         }
+        
+        
+        [HttpGet(Name = "test")]
+        public IActionResult TestApi()
+        {
+            return Ok(new {message = "All is good "});
+        }
 
 
     }
