@@ -21,7 +21,7 @@ deploy:
   provider: elasticbeanstalk
   region: "us-east-2"
   app: "tourism-app"
-  env: "Tourismapp-env"
+  env: "Tourismapp-env-1"
   bucket_name: "elasticbeanstalk-us-east-2-306483622823"
   bucket_path: "tourism-app"
   on:
