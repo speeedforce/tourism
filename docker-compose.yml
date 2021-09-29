@@ -9,6 +9,10 @@ services:
     volumes:
       - ./postgres-data:/var/lib/postgresql/store
   nginx:
+  depends_on:
+      - tourism-api
+      - client
+    restart: always
     mem_limit: 128m
     hostname: nginx
     image: speedforce7/tourism-nginx
