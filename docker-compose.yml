@@ -3,8 +3,8 @@ services:
   postgres:
     image: 'postgres:latest'
     environment:
-      - PGDATABASE=$PGDATABASE
-      - PGPASSWORD=$PGPASSWORD
-      - PGUSER=$PGUSER
+      - POSTGRES_DB=$PGDATABASE
+      - POSTGRES_PASSWORD=$PGPASSWORD
+      - POSTGRES_USER=$PGUSER
     volumes:
       - ./postgres-data:/var/lib/postgresql/store
