@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  APIURL: "http://18.117.105.166/tourism-api/api"
+  APIURL: "http://18.217.39.17/tourism-api/api"
 };
 
 /*
