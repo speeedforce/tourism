@@ -35,6 +35,3 @@ services:
     image: "speedforce7/tourism-client"
     mem_limit: 128m
     hostname: client
-
-
-   
