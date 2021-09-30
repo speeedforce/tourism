@@ -4,19 +4,20 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { IForum } from '../types/core';
 import { environment } from 'src/environments/environment';
+import { AppSettings } from '../app.settings';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ForumService implements IForumService {
 
-  
+  private APIURL = environment.production ? AppSettings.API_URL : environment.APIURL;
   constructor(private http: HttpClient) {
-   
+   console.log(this.APIURL);
   }
 
   get(): Observable<IForum> {
-     return this.http.get<IForum>(`${environment.APIURL}/forum`);
+     return this.http.get<IForum>(`${this.APIURL}/forum`);
   }
   edit(): Observable<IForum> {
     throw new Error('Method not implemented.');
