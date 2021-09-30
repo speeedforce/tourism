@@ -11,7 +11,7 @@ import { map } from 'rxjs/operators';
 })
 export class ArticleService {
 
-  private APIURL = environment.production ? AppSettings.API_URL : environment.APIURL;
+  private APIURL = AppSettings.API_URL;
   constructor(private http: HttpClient) { }
 
   getById(id: number): Observable<IArticle> {

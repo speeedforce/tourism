@@ -9,7 +9,7 @@ import { AppSettings } from '../app.settings';
 @Injectable({ providedIn: 'root' })
 export class UserService {
     
-    private APIURL = environment.production ? AppSettings.API_URL : environment.APIURL;
+    private APIURL = AppSettings.API_URL;
     constructor(private http: HttpClient) { }
 
     getAll() {

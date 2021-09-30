@@ -11,7 +11,7 @@ import { AppSettings } from '../app.settings';
 })
 export class ForumService implements IForumService {
 
-  private APIURL = environment.production ? AppSettings.API_URL : environment.APIURL;
+  private APIURL = AppSettings.API_URL;
   constructor(private http: HttpClient) {
    console.log(this.APIURL);
   }
