@@ -7,10 +7,10 @@ services:
 deploy:
   provider: elasticbeanstalk
   region: "us-east-2"
-  app: "tourism-app"
-  env: "Tourismapp-env"
+  app: "toursim-app"
+  env: "Toursimapp-env"
   bucket_name: "elasticbeanstalk-us-east-2-306483622823"
-  bucket_path: "tourism-app"
+  bucket_path: "toursim-app"
   on:
     branch: master
   access_key_id: $AWS_ACCESS_KEY
