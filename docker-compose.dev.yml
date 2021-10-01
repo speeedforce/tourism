@@ -3,13 +3,13 @@ services:
   postgres:
     image: 'postgres:latest'
     environment:
-      POSTGRES_DB: 'tourism-db-dev'
+      POSTGRES_DB: 'tourism'
       POSTGRES_PASSWORD: 'postgres_password'
       POSTGRES_USER: 'postgres'
     volumes:
       - ./postgres-data:/var/lib/postgresql/store
-    # ports:
-    #   - "9999:5432"
+    ports:
+      - "9999:5432"
   nginx:
     depends_on:
       - tourism-api
@@ -24,27 +24,23 @@ services:
     image: ${DOCKER_REGISTRY-}tourism-api
     build:
       context: ./webapi
-      dockerfile: Dockerfile.dev
+      dockerfile: Dockerfile
     depends_on:
       - postgres
     entrypoint: ["/usr/local/bin/wait-for-it.sh", "postgres:5432", "--", "dotnet", "Tourism.WebApp.dll"]
     environment:
-      - PGUSER=postgres
+      - POSTGRES_USER=postgres
       - PGHOST=postgres
-      - PGDATABASE=tourism-db-dev
-      - PGPASSWORD=postgres_password
-      - PGPORT=5432
-      - ASPNETCORE_ENVIRONMENT=Development
-    # ports:
-    #   - "6666:5000"
+      - POSTGRES_DB=tourism
+      - POSTGRES_PASSWORD=postgres_password
+      - PGPORT=5432   
+    ports:
+      - "5000:5000"
   client:
     stdin_open: true
-    # image: ${DOCKER_REGISTRY-}tourism-client
     build:
       context: ./client
       dockerfile: Dockerfile
-    # ports:
-    #   - "8888:3000"
     volumes:
       - /home/node/app/node_modules
       - ./client:/home/node/app

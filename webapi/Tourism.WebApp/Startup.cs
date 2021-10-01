@@ -7,6 +7,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -38,7 +40,12 @@ namespace Tourism.WebApp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+            foreach (DictionaryEntry de in Environment.GetEnvironmentVariables())
+                Debug.WriteLine("  {0} = {1}", de.Key, de.Value);
+            
             Debug.WriteLine(Configuration.GetConnectionString("DefaultConnection"));
+            
             services.AddDbContext<ApplicationDbContext>(options =>
                options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection"),
                b => b.MigrationsAssembly("Tourism.WebApp")));
