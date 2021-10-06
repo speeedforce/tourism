@@ -36,6 +36,10 @@ export class ERRORS_TEXT {
      static PREVIEW = "Переглянути"
 
 
+     static ATTACHMENTS = "Додатки"
+     static DOCS = "Документи"
+
+
    
 }
 

@@ -1,3 +1,4 @@
+import { ArticleDetailsComponent } from './components/article-details/article-details.component';
 import { SharedModule } from './../shared/shared.module';
 import { ForumRoutingModule } from './forum-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -15,6 +16,6 @@ import { ArticleComponent } from './components/article/article.component';
     SharedModule
    
   ],
-  declarations: [ForumComponent, ArticleComponent]
+  declarations: [ForumComponent, ArticleComponent, ArticleDetailsComponent]
 })
 export class ForumModule { }

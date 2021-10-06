@@ -42,6 +42,9 @@ export interface IArticle {
     author: string;
     forumId: number;
     replies: any[];
+    attachments: string[];
+    docs: string[];
+
 }
 
 

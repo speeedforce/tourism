@@ -41,10 +41,7 @@ namespace Tourism.WebApp
         public void ConfigureServices(IServiceCollection services)
         {
 
-            foreach (DictionaryEntry de in Environment.GetEnvironmentVariables())
-                Debug.WriteLine("  {0} = {1}", de.Key, de.Value);
-            
-            Debug.WriteLine(Configuration.GetConnectionString("DefaultConnection"));
+           
             
             services.AddDbContext<ApplicationDbContext>(options =>
                options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection"),
@@ -57,10 +54,7 @@ namespace Tourism.WebApp
                                   builder =>
                                   {
                                       builder.AllowAnyHeader();
-                                      builder.WithOrigins("http://localhost:80");
-                                      builder.WithOrigins("http://client:3000");
-                                      builder.WithOrigins("http://localhost:3000");
-                                      builder.WithOrigins("http://localhost:8888");
+                                      builder.AllowAnyOrigin();
                                       builder.AllowAnyMethod();
                                   });
             });

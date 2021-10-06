@@ -6,11 +6,9 @@
     <app-article class="cards__important-item" *ngFor="let item of forum.articles?.slice(0,2)"
         [article]='item' 
         [isAdmin]='user?.role === "Admin"'
-        
         [routerLink]="['/forum/article', item.id]"
         (delete)='delete($event)'
         [important] = 'true'>
-
    </app-article>
   </div>
 
@@ -18,10 +16,10 @@
     <h2>Головні новини, Подіїї</h2>
   </div>
   <div  class="forum-articles"  *ngIf="loading && forum !== null && forum !== undefined else loading">
-        <app-article class="cards__item" *ngFor="let item of forum.articles?.slice(2,forum.articles.length)"
+      <app-article class="cards__item" *ngFor="let item of forum.articles?.slice(2,forum.articles.length)"
           [article]='item'
           (delete)='delete($event)'
-          routerLink='/forum/1'
+          [routerLink]="['/forum/article', item.id]"
          
           [isAdmin]='user?.role === "Admin"'>
 

@@ -1,0 +1,37 @@
+<div class="article-details-container" *ngIf="article$ | async as article; else loading">
+    <div class="card__title">
+      <h3>{{article.title}}</h3>
+   </div>
+    <div class="card__content">
+      <div class="card__image">
+        <img [src]="article.imageUrl === null ? 'assets/pictures/autumn.jpg' :  article.imageUrl " >
+      </div>
+      <div class="card__content__text">
+        <div class="card__text">
+          <p> {{article.content}}</p>
+        </div>
+        <div class="card__docs">
+          <h5>{{SYSTEM_CONTENT.CONTENT.ARTICLE.DOCS}}</h5>
+          <div class="card__file">
+            <ul class="check-list">
+              <li *ngFor="let item of article.docs" [routerLink]="item">{{item}}</li>
+            </ul>
+          </div>
+        </div>
+      </div>  
+    </div>
+    <div class="card__attachments">
+      <h4>{{SYSTEM_CONTENT.CONTENT.ARTICLE.ATTACHMENTS}}</h4>
+      <div class="card__images">
+        <div  class="cards__item" *ngFor="let item of article.attachments"> 
+            <img [src]="item" alt="content image">
+        </div>
+      </div>
+    </div>
+</div>
+<ng-template #loading>
+  <div>
+    Loading...
+    </div>
+
+</ng-template>
