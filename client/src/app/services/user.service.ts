@@ -1,16 +1,15 @@
-import { environment } from 'src/environments/environment';
+import { Api } from './api';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { User } from '../types/core';
-import { AppSettings } from '../app.settings';
-
-
 
 @Injectable({ providedIn: 'root' })
-export class UserService {
+export class UserService extends Api {
     
-    private APIURL = AppSettings.API_URL;
-    constructor(private http: HttpClient) { }
+   
+    constructor(private http: HttpClient) { 
+        super();
+    }
 
     getAll() {
         return this.http.get<User[]>(`${this.APIURL}/users`);

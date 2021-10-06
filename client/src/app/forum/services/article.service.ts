@@ -1,5 +1,5 @@
-import { AppSettings } from '../../app.settings';
-import { environment } from 'src/environments/environment';
+import { IArticleService } from './../../types/action';
+import { Api } from '../../services/api';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -9,10 +9,12 @@ import { map } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
-export class ArticleService {
+export class ArticleService extends Api implements IArticleService {
 
-  private APIURL = AppSettings.API_URL;
-  constructor(private http: HttpClient) { }
+
+  constructor(private http: HttpClient) { 
+    super();
+  }
 
   getById(id: number): Observable<IArticle> {
     return this.http.get<IArticle>(`${this.APIURL}/article/${id}`);
