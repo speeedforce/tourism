@@ -1,5 +1,4 @@
 import { ForumModule } from './forum/forum.module';
-import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -11,9 +10,10 @@ import { RouterModule } from '@angular/router';
 import { ErrorInterceptor } from 'src/api-authorization/helpers/error.interceptor';
 import { JwtInterceptor } from 'src/api-authorization/helpers/jwt.interceptor';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { HeaderContentComponent } from './shared/header-content/header-content.component';
 
 @NgModule({
-  declarations: [			
+  declarations: [				
     AppComponent,
     NavMenuComponent,
     PageNotFoundComponent
@@ -21,9 +21,9 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
-    ForumModule,
     ApiAuthorizationModule,
-    AppRoutingModule
+    ForumModule,
+    AppRoutingModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

@@ -1,3 +1,4 @@
+import { SharedModule } from './../shared/shared.module';
 import { ForumRoutingModule } from './forum-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
@@ -10,7 +11,8 @@ import { ArticleComponent } from './components/article/article.component';
   imports: [
     CommonModule,
     ForumRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    SharedModule
    
   ],
   declarations: [ForumComponent, ArticleComponent]

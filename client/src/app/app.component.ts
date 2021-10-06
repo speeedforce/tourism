@@ -6,20 +6,4 @@ import { Component } from '@angular/core';
   templateUrl: './app.component.html'
 })
 export class AppComponent {
-  time: Date;
-
-
-
-  constructor() {
-    this.getCurrentDate();
-  }
-
-
-
-  getCurrentDate() {
-    setInterval(() => {
-      this.time = new Date(); 
-
-    }, 1000);
-  }
 }

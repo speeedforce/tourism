@@ -5,7 +5,6 @@ import { ArticleComponent } from './components/article/article.component';
 
 
 const routes: Routes = [
-  { path: 'home', redirectTo: '/forum' },
   { path: 'forum',  component: ForumComponent },
   { path: 'forum/article/:id', component: ArticleComponent }
 ];

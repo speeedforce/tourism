@@ -22,7 +22,7 @@ import { LogoutComponent } from './logout/logout.component';
       ]
     )
   ],
-  declarations: [ LoginComponent, RegisterComponent, LogoutComponent],
-  exports: [LoginComponent, RegisterComponent, LogoutComponent]
+  declarations: [ LoginComponent, RegisterComponent, LogoutComponent ],
+  exports: [ LoginComponent, RegisterComponent, LogoutComponent ]
 })
 export class ApiAuthorizationModule { }

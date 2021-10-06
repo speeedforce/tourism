@@ -1,8 +1,7 @@
+
+
 <div class="forum-container">
-  <div class='admin-panel' *ngIf='user?.role === "Admin"'>
-    <button class="btn btn-success"
-            routerLink="/admin/article">{{SYSTEM_CONTENT.CONTENT.CREATE}}</button>
-  </div>
+  <app-header-content></app-header-content>
   <div class="forum-articles"  *ngIf="loading && forum !== null && forum !== undefined else loading">
     <app-article class="cards__important-item" *ngFor="let item of forum.articles?.slice(0,2)"
         [article]='item' 
