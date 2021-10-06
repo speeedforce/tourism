@@ -5,8 +5,6 @@ import { CommonModule } from '@angular/common';
 
 import { ForumComponent } from './components/forum/forum.component';
 import { ArticleComponent } from './components/article/article.component';
-import { ArticleEditorComponent } from './components/article-editor/article-editor.component';
-
 
 @NgModule({
   imports: [
@@ -15,6 +13,6 @@ import { ArticleEditorComponent } from './components/article-editor/article-edit
     ReactiveFormsModule
    
   ],
-  declarations: [ForumComponent, ArticleComponent, ArticleEditorComponent]
+  declarations: [ForumComponent, ArticleComponent]
 })
 export class ForumModule { }

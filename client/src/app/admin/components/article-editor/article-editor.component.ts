@@ -1,6 +1,6 @@
 
 import { SYSTEM_CONTENT } from 'src/content.const';
-import { ArticleService } from '../../services/article.service';
+import { ArticleService } from '../../../forum/services/article.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
