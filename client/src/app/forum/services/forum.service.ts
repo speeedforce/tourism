@@ -1,10 +1,10 @@
-import { IForumService } from './../types/action';
+import { IForumService } from '../../types/action';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { IForum } from '../types/core';
+import { IForum } from '../../types/core';
 import { environment } from 'src/environments/environment';
-import { AppSettings } from '../app.settings';
+import { AppSettings } from '../../app.settings';
 
 @Injectable({
   providedIn: 'root'

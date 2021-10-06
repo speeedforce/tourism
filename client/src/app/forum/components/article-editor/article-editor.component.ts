@@ -1,12 +1,13 @@
-import { IArticle } from './../../types/core';
+
 import { SYSTEM_CONTENT } from 'src/content.const';
-import { ArticleService } from './../../services/article.service';
+import { ArticleService } from '../../services/article.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { IArticleInput } from '../../types/core';
+
 import * as moment from 'moment';
 import { ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs/operators';
+import { IArticle, IArticleInput } from 'src/app/types/core';
 
 
 @Component({

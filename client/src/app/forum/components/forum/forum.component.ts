@@ -1,14 +1,13 @@
-import { ArticleService } from 'src/app/services/article.service';
+
 import { AuthenticationService } from 'src/api-authorization/authorize.service';
 
-import { Observable } from 'rxjs';
 
-import { UserService } from './../../services/user.service';
-import { ForumService } from './../../services/forum.service';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { IArticleInput, IForum, User} from '../../types/core';
-import { SYSTEM_CONTENT } from '../../../content.const';
+import { IArticleInput, IForum, User} from '../../../types/core';
+import { SYSTEM_CONTENT } from '../../../../content.const';
 import { getMockData } from './mock';
+import { ForumService } from '../../services/forum.service';
+import { ArticleService } from '../../services/article.service';
 
 @Component({
   selector: 'app-forum',
@@ -30,15 +29,18 @@ export class ForumComponent implements OnInit, OnDestroy {
     private authService: AuthenticationService) { }
   
   ngOnInit() {
+    console.log('I work');
     this.init();
     this.user = this.authService.userValue;
   }
 
   private init() {
-    this.forumService.get().subscribe(item => {
-      this.forum = item;
-      this.loading = false;
-    });
+    // this.forumService.get().subscribe(item => {
+    //   this.forum = item;
+    //   this.loading = false;
+    // });
+
+    this.forum = getMockData();
   }
 
   delete(id: number) {

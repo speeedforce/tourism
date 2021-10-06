@@ -7,6 +7,8 @@
     <app-article class="cards__important-item" *ngFor="let item of forum.articles?.slice(0,2)"
         [article]='item' 
         [isAdmin]='user?.role === "Admin"'
+        
+        [routerLink]="['/forum/article', item.id]"
         (delete)='delete($event)'
         [important] = 'true'>
 
@@ -20,6 +22,8 @@
         <app-article class="cards__item" *ngFor="let item of forum.articles?.slice(2,forum.articles.length)"
           [article]='item'
           (delete)='delete($event)'
+          routerLink='/forum/1'
+         
           [isAdmin]='user?.role === "Admin"'>
 
         </app-article>
@@ -28,5 +32,4 @@
       <div>Loading...</div>
   </ng-template>
 </div>
-
 <!-- <app-article [article]='default'></app-article> -->

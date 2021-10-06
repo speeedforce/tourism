@@ -1,9 +1,9 @@
-import { AppSettings } from './../app.settings';
+import { AppSettings } from '../../app.settings';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { IArticle, IArticleInput } from '../types/core';
+import { IArticle, IArticleInput } from '../../types/core';
 import { map } from 'rxjs/operators';
 
 @Injectable({
