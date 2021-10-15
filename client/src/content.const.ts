@@ -23,6 +23,11 @@ export class ERRORS_TEXT {
 
     }
 
+    export class FORUM_CONTENT {
+         static TITLE = "Запорізький центр спортивного орієнтування";
+         static INFO = "Все про наші змагання - календар, результатт, протоколи. На сайті Ви можете подати заявку на змагання та дізнатися останні новини."
+         static IMAGE = "assets/pictures/main.jpg"
+    }
 
     export class ARTICLE_CONTENT {
      static CREATED = "Зберегти"
@@ -75,6 +80,7 @@ export class CONTENT_TEXT {
 
      // static ARTICLE_CREATED = "Статтю успішно створено: "
      // static ARTICLE_UPDATED = "Статя успішно оновлена"
+     static FORUM = FORUM_CONTENT;
      static ARTICLE = ARTICLE_CONTENT;
 
 

@@ -1,32 +1,22 @@
-
-
 <div class="forum-container">
-  <app-header-content></app-header-content>
-  <div class="forum-articles"  *ngIf="loading && forum !== null && forum !== undefined else loading">
-    <app-article class="cards__important-item" *ngFor="let item of forum.articles?.slice(0,2)"
-        [article]='item' 
-        [isAdmin]='user?.role === "Admin"'
-        [routerLink]="['/forum/article', item.id]"
-        (delete)='delete($event)'
-        [important] = 'true'>
-   </app-article>
-  </div>
+  <app-header-content
+    [timeOn]='true'
+    [title]="SYSTEM_CONTENT.CONTENT.FORUM.TITLE"
+    [info]="SYSTEM_CONTENT.CONTENT.FORUM.INFO"
+    [image]="SYSTEM_CONTENT.CONTENT.FORUM.IMAGE">
+  </app-header-content>
+ 
+  <h2>Головні новини, Подіїї</h2>
 
-  <div class="forum-header">
-    <h2>Головні новини, Подіїї</h2>
-  </div>
   <div  class="forum-articles"  *ngIf="loading && forum !== null && forum !== undefined else loading">
-      <app-article class="cards__item" *ngFor="let item of forum.articles?.slice(2,forum.articles.length)"
+      <app-article class="forum-article" *ngFor="let item of forum.articles"
           [article]='item'
           (delete)='delete($event)'
-          [routerLink]="['/forum/article', item.id]"
-         
+          [routerLink]="['/forum/article', item.id]"  
           [isAdmin]='user?.role === "Admin"'>
-
         </app-article>
   </div>
   <ng-template #loading>
       <div>Loading...</div>
   </ng-template>
 </div>
-<!-- <app-article [article]='default'></app-article> -->

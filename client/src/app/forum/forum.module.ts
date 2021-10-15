@@ -13,8 +13,7 @@ import { ArticleComponent } from './components/article/article.component';
     CommonModule,
     ForumRoutingModule,
     ReactiveFormsModule,
-    SharedModule
-   
+    SharedModule,
   ],
   declarations: [ForumComponent, ArticleComponent, ArticleDetailsComponent]
 })

@@ -6,7 +6,8 @@
 
 .header-static {
   img {
-    width: 100%;
+    max-width: 100%;
+    height: auto;
   }
 
   .date-left {
@@ -37,6 +38,7 @@
     left: 20px;
     padding: 20px;
     width: 30%;
+  
   }
 
   .welcome-about {

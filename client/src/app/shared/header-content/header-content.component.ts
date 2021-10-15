@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-header-content',
@@ -8,13 +8,20 @@ import { Component, OnInit } from '@angular/core';
 export class HeaderContentComponent implements OnInit {
 
   time: Date;
+  @Input() title: string;
+  @Input() info: string;
+  @Input() image: string;
+  @Input() timeOn: boolean;
 
   constructor() {
-    this.getCurrentDate();
+   
   }
 
   ngOnInit(): void {
    
+    if (this.timeOn) {
+      this.getCurrentDate();
+    }
   }
 
   getCurrentDate() {
