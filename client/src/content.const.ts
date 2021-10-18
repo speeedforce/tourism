@@ -51,6 +51,14 @@ export class ERRORS_TEXT {
    
 }
 
+export class USER_PROFILE {
+     static CHANGE_PASSWORD = 'Змінити пароль'
+
+     static CURRENT_PASS = "Теперішній пароль"
+
+     static NEW_PASSWORD = "Новий пароль"
+}
+
 
 
 
@@ -81,14 +89,16 @@ export class CONTENT_TEXT {
      static ATTACHED = "Додати вкладення";
      static REPLY = "Відповісти";
 
-     // static ARTICLE_CREATED = "Статтю успішно створено: "
-     // static ARTICLE_UPDATED = "Статя успішно оновлена"
+
      static FORUM = FORUM_CONTENT;
      static ARTICLE = ARTICLE_CONTENT;
 
 
      static SUCCESS = "Дія успішно виконена"
      static CONFIRM_WARNING = "Ви підтверджуєте дію?"
+
+
+     static USER = USER_PROFILE;
 }
 
 

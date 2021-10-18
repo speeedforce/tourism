@@ -55,7 +55,10 @@
         </button>
 
         <div *ngIf="isAuth">
-          <a class='nav-link' [routerLink]= "'/profile'">{{userLink.title}}</a>
+          <a class='nav-link' [routerLink]= "'/profile'">
+           
+            <i style="font-size: 24px"  class="far fa-user-circle"></i>
+          </a>
         </div>
 
         <button  *ngIf="isAuth" class="btn logout" (click)='logout()'> 

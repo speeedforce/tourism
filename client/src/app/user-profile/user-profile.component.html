@@ -1,0 +1,14 @@
+<div>
+  <!-- <div>
+    <button (click)='changeState("email")'> Змінити пошту </button>
+    <button (click)='changeState("password")'> Змінити пароль </button>
+  </div> -->
+  <div [ngSwitch]="state">
+    <div *ngSwitchCase="'email'">
+      форма для зміни пошти
+    </div>
+    <div *ngSwitchCase="'password'">
+      <app-change-password></app-change-password>
+    </div>
+  </div>
+</div>

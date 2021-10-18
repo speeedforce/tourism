@@ -1,3 +1,4 @@
+import { UserProfileComponent } from './user-profile/user-profile.component';
 import { Role } from './types/core';
 import { AuthGuard } from './../api-authorization/helpers/authorize.guard';
 import { RouterModule, Routes } from '@angular/router';
@@ -10,6 +11,10 @@ const routes: Routes = [
   { 
     path: 'forum', 
     loadChildren: () => import('./forum/forum.module').then(m => m.ForumModule),
+  },
+  {
+    path: 'profile',
+    component: UserProfileComponent
   },
   { 
     path: 'admin', 

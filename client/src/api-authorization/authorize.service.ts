@@ -10,7 +10,7 @@ import { environment } from 'src/environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
-   
+    
     private userSubject: BehaviorSubject<User>;
     public user: Observable<User>;
 
@@ -45,6 +45,11 @@ export class AuthenticationService {
             return user;
         }));
     }
+
+    changePassword(password: string) {
+        return new Observable();
+      }
+     
 
     logout() {
         // remove user from local storage to log user out
