@@ -8,6 +8,10 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 const routes: Routes = [
   { path: '',   redirectTo: 'forum', pathMatch: 'full' },
   { 
+    path: 'forum', 
+    loadChildren: () => import('./forum/forum.module').then(m => m.ForumModule),
+  },
+  { 
     path: 'admin', 
     loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule),
     canActivate: [AuthGuard],

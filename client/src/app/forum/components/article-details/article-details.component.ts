@@ -1,6 +1,8 @@
+import { AuthenticationService } from './../../../../api-authorization/authorize.service';
+import { UserService } from './../../../services/user.service';
 import { Observable } from 'rxjs';
 import { ArticleService } from './../../services/article.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { IArticle } from 'src/app/types/core';
 import { ParamMap, ActivatedRoute } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
@@ -15,9 +17,11 @@ import { SYSTEM_CONTENT } from 'src/content.const';
 export class ArticleDetailsComponent implements OnInit {
 
   article$;
+  @Input() isAdmin: boolean;
 
   SYSTEM_CONTENT = SYSTEM_CONTENT;
   constructor(private articleService: ArticleService,
+              private authService: AuthenticationService,
               private route: ActivatedRoute) { }
 
   ngOnInit() {
@@ -25,7 +29,11 @@ export class ArticleDetailsComponent implements OnInit {
       switchMap((params: ParamMap) =>
         // this.articleService.getById(+params.get('id')))
         mockArticle())
+
+      
     );
+
+   
 
     this.article$.subscribe(q => console.log(q));
   }

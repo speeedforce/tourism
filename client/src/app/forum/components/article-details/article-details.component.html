@@ -6,6 +6,11 @@
   </app-header-content> -->
   <div class="article-title">
     <h1>{{article.title}}</h1>
+
+    <div *ngIf=" this.authService.userValue?.role === 'Admin'">
+      <i class="far fa-edit mr-4" [routerLink]='["/admin/article", article.id]'></i>
+      <i class="fas fa-trash-alt"></i>
+    </div>
   </div>
   <div class="article-layout">
     

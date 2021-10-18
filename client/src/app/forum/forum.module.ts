@@ -7,6 +7,7 @@ import { CommonModule } from '@angular/common';
 
 import { ForumComponent } from './components/forum/forum.component';
 import { ArticleComponent } from './components/article/article.component';
+import { HomeComponent } from './components/home/home.component';
 
 @NgModule({
   imports: [
@@ -15,6 +16,6 @@ import { ArticleComponent } from './components/article/article.component';
     ReactiveFormsModule,
     SharedModule,
   ],
-  declarations: [ForumComponent, ArticleComponent, ArticleDetailsComponent]
+  declarations: [HomeComponent, ForumComponent, ArticleComponent, ArticleDetailsComponent]
 })
 export class ForumModule { }

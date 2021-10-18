@@ -22,7 +22,6 @@ import { HeaderContentComponent } from './shared/header-content/header-content.c
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
     ApiAuthorizationModule,
-    ForumModule,
     AppRoutingModule,
   ],
   providers: [
