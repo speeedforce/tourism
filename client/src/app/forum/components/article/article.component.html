@@ -1,3 +1,5 @@
+
+
 <div class="article-card" >
   <div class="card__image">
     <img [src]="article.imageUrl === null ? 'assets/pictures/autumn.jpg' :  article.imageUrl " 
@@ -13,10 +15,7 @@
   </div>
   <div class="footer">
     <p>{{article.created | date: 'short'}}</p>
+    <a  [routerLink]="['/forum/article', article.id]">Детальніше...</a>
     <!-- <p>{{article.author}}</p> -->
-    <div *ngIf="isAdmin">
-      <button class="btn btn-warning mr-2"  [routerLink]="['/admin/article', article.id]"> {{SYSTEM_CONTENT.CONTENT.EDIT}} </button>
-      <button class="btn btn-danger" (click)="onDelete()"> {{SYSTEM_CONTENT.CONTENT.REMOVE}} </button>
-    </div>
   </div>
 </div>

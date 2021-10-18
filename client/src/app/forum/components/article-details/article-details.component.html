@@ -1,3 +1,5 @@
+
+
 <div class="article-details-container" *ngIf="article$ | async as article; else loading">
   <!-- <app-header-content
       [timeOn]='false'
@@ -6,11 +8,9 @@
   </app-header-content> -->
   <div class="article-title">
     <h1>{{article.title}}</h1>
-
     <div *ngIf=" this.authService.userValue?.role === 'Admin'">
-      <i class="far fa-edit mr-4" [routerLink]='["/admin/article", article.id]'></i>
-      <i class="fas fa-trash-alt"></i>
-    </div>
+      <a  [routerLink]='["/admin/article", article.id]'><i style='font-size: 24px;' class="far fa-edit mr-4"></i>Редагувати</a>
+    </div>    
   </div>
   <div class="article-layout">
     
@@ -42,7 +42,6 @@
     </div>
   </div>
 </div>
-
 
 <ng-template #loading>
   <div>

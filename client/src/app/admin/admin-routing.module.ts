@@ -1,5 +1,3 @@
-import { ManageForumComponent } from './components/manage-forum/manage-forum.component';
-
 import { AuthGuard } from './../../api-authorization/helpers/authorize.guard';
 import { RouterModule, Routes } from '@angular/router';
 import { AdminComponent } from './components/admin/admin.component';
@@ -17,8 +15,8 @@ const routes: Routes = [
         path: '',
         canActivateChild: [AuthGuard],
         children: [
-          { path: 'article/:id', component: ArticleEditorComponent},
-          { path: 'manage', component: ManageForumComponent }
+          { path: 'article', component: ArticleEditorComponent },
+          { path: 'article/:id', component: ArticleEditorComponent}
         ]
       },
     ],

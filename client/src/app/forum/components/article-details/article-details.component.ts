@@ -21,7 +21,7 @@ export class ArticleDetailsComponent implements OnInit {
 
   SYSTEM_CONTENT = SYSTEM_CONTENT;
   constructor(private articleService: ArticleService,
-              private authService: AuthenticationService,
+              public authService: AuthenticationService,
               private route: ActivatedRoute) { }
 
   ngOnInit() {

@@ -10,8 +10,7 @@
 
   <div  class="forum-articles"  *ngIf="loading && forum !== null && forum !== undefined else loading">
       <app-article class="forum-article" *ngFor="let item of forum.articles"
-          [article]='item'
-          (delete)='delete($event)'        
+          [article]='item'   
           [isAdmin]='user?.role === "Admin"'>
       </app-article>
   </div>

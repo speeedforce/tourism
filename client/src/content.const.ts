@@ -30,6 +30,9 @@ export class ERRORS_TEXT {
     }
 
     export class ARTICLE_CONTENT {
+     static CREATE = "Створити пост"
+
+
      static CREATED = "Зберегти"
      static UPDATED = "Статя успішно оновлена"
 

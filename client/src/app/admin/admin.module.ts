@@ -1,4 +1,4 @@
-import { ManageForumComponent } from './components/manage-forum/manage-forum.component';
+
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -13,6 +13,6 @@ import { AdminComponent } from './components/admin/admin.component';
     FormsModule,
     AdminRoutingModule,
   ],
-  declarations: [AdminComponent, ArticleEditorComponent, ManageForumComponent]
+  declarations: [AdminComponent, ArticleEditorComponent]
 })
 export class AdminModule { }

@@ -11,20 +11,10 @@ import { ArticleService } from '../../services/article.service';
 })
 export class ArticleComponent implements OnInit {
 
-
   @Input() article: IArticle;
-  @Input() important: boolean = false;
-  @Input() isAdmin: boolean = false;
-
-  @Output() delete: EventEmitter<number> = new EventEmitter();
 
   SYSTEM_CONTENT = SYSTEM_CONTENT;
-  constructor(private articleService: ArticleService) { }
+  constructor() { }
 
   ngOnInit() { }
-
-  onDelete(): void {
-    this.delete.emit(this.article.id);
-  }
-
 }

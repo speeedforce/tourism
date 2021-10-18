@@ -37,6 +37,12 @@
 
     </div>
     <div class="btn-item">
+
+      <button  *ngIf="isAuth && this.authService.userValue?.role === 'Admin'" 
+        class="btn btn-round login" [routerLink]="'/admin/article'"> 
+        {{SYSTEM_CONTENT.CONTENT.ARTICLE.CREATE}} 
+
+      </button>
       
         <button  *ngIf="!isAuth" class="btn btn-round login" [routerLink]="'/login'"> 
           {{SYSTEM_CONTENT.CONTENT.LOGIN}} 

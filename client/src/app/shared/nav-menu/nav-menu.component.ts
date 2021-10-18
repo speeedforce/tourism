@@ -19,7 +19,7 @@ export class NavMenuComponent {
   userLink: ILink;
   SYSTEM_CONTENT = SYSTEM_CONTENT;
 
-  constructor(private router: Router, private authService: AuthenticationService) {
+  constructor(private router: Router, public authService: AuthenticationService) {
     this.href = this.router.url;
 
     this.authService.user.subscribe(user => {
@@ -33,6 +33,7 @@ export class NavMenuComponent {
         this.menuItems = generateMenu();
         this.isAuth = false;
         this.userLink = null;
+        
       }
     })
   }
