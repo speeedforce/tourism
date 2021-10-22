@@ -87,9 +87,10 @@ export class ArticleEditorComponent implements OnInit, OnDestroy {
 
     const article: IArticleInput = {
       title: this.f.title.value,
-      content: this.f.content.value,
+      text: this.f.content.value,
       created: moment().format('YYYY-MM-DDTHH:MM'),
-      imageUrl: ''  
+      imageUrl: '',  
+      content: []
     }
 
     this.articleServcice.create(article).subscribe({

@@ -27,10 +27,7 @@ export class ArticleDetailsComponent implements OnInit {
   ngOnInit() {
     this.article$ = this.route.paramMap.pipe(
       switchMap((params: ParamMap) =>
-        // this.articleService.getById(+params.get('id')))
-        mockArticle())
-
-      
+        this.articleService.getById(+params.get('id')))
     );
 
    

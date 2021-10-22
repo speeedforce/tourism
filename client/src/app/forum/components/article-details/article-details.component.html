@@ -19,23 +19,23 @@
         <img [src]="article.imageUrl === null ? 'assets/pictures/autumn.jpg' :  article.imageUrl ">
       </div>
       <div class="article-text">
-        <p> {{article.content}}</p>
+        <p> {{article.text}}</p>
       </div>
 
-      <div class="article-docs">
+      <!-- <div class="article-docs">
         <h3>{{SYSTEM_CONTENT.CONTENT.ARTICLE.DOCS}}</h3>
         <div class="article-file">
           <ul class="article-docs">
             <li *ngFor="let item of article.docs" [routerLink]="item">{{item}}</li>
           </ul>
         </div>
-      </div>
+      </div> -->
     </div>
 
     <div class="article-attachments">
       <h3>{{SYSTEM_CONTENT.CONTENT.ARTICLE.ATTACHMENTS}}</h3>
       <div class="forum-articles">
-        <div class="forum-article" *ngFor="let item of article.attachments">
+        <div class="forum-article" *ngFor="let item of article.files">
           <img [src]="item" alt="content image">
         </div>
       </div>

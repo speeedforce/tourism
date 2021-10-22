@@ -35,12 +35,12 @@ export class ForumComponent implements OnInit, OnDestroy {
   }
 
   private init() {
-    // this.forumService.get().subscribe(item => {
-    //   this.forum = item;
-    //   this.loading = false;
-    // });
+    this.forumService.get().subscribe(item => {
+      this.forum = item;
+      this.loading = false;
+    });
 
-    this.forum = getMockData();
+    // this.forum = getMockData();
   }
 
   delete(id: number) {

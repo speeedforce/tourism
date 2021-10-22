@@ -10,6 +10,11 @@
       </div>
      </div>
      <div class="form-group">
+      <label for="image">{{SYSTEM_CONTENT.CONTENT.ARTICLE.IMAGE_CONTENT}}</label>
+      <input type="image" formControlName="image" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.title.errors }" />
+     
+     </div>
+     <div class="form-group">
       <label for="content">{{SYSTEM_CONTENT.CONTENT.ARTICLE.CONTENT}}</label>
       <textarea type="text"  formControlName="content" class="form-control" 
           [ngClass]="{ 'is-invalid': submitted && f.content.errors }"
@@ -25,8 +30,7 @@
      <div class="form-group">
        <div class=" attachment-panel">
         <button class="btn btn-primary">{{SYSTEM_CONTENT.CONTENT.ARTICLE.IMAGE_CONTENT}}</button>
-        <button class="btn btn-secondary">{{SYSTEM_CONTENT.CONTENT.ARTICLE.ATTACHMENT}}</button>
-        <button class="btn btn-warning">{{SYSTEM_CONTENT.CONTENT.ARTICLE.PREVIEW}}</button> 
+        <button class="btn btn-secondary">{{SYSTEM_CONTENT.CONTENT.ARTICLE.ATTACHMENT}}</button>  
       </div>
      </div>
 

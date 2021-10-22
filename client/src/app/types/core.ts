@@ -33,25 +33,34 @@ export interface IForumEdit {
 }
 
 
+export interface IAppFile {
+    id: number;
+    physPath: string;
+    alt: string;
+    key: string;
+    created: Date;
+}
+
+
 export interface IArticle {
     id: number;
     title: string;
-    content: string;
+    text: string;
+    content: IAppFile[];
     created: string;
     imageUrl: string;
     author: string;
     forumId: number;
     replies: any[];
-    attachments: string[];
-    docs: string[];
-
 }
+
 
 
 export interface IArticleInput {
     title: string;
-    content: string;
+    text: string;
     created: string;
-    imageUrl    : string;
+    imageUrl: string;
+    content: any[];
 }
 
