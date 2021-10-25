@@ -1,11 +1,6 @@
 
 
 <div class="article-details-container" *ngIf="article$ | async as article; else loading">
-  <!-- <app-header-content
-      [timeOn]='false'
-      [title]="article.title"
-      [image]="article.imageUrl">
-  </app-header-content> -->
   <div class="article-title">
     <h1>{{article.title}}</h1>
     <div *ngIf=" this.authService.userValue?.role === 'Admin'">
@@ -22,21 +17,22 @@
         <p> {{article.text}}</p>
       </div>
 
-      <!-- <div class="article-docs">
+      <div class="article-docs">
         <h3>{{SYSTEM_CONTENT.CONTENT.ARTICLE.DOCS}}</h3>
         <div class="article-file">
           <ul class="article-docs">
             <li *ngFor="let item of article.docs" [routerLink]="item">{{item}}</li>
           </ul>
         </div>
-      </div> -->
+      </div>
     </div>
 
     <div class="article-attachments">
       <h3>{{SYSTEM_CONTENT.CONTENT.ARTICLE.ATTACHMENTS}}</h3>
       <div class="forum-articles">
-        <div class="forum-article" *ngFor="let item of article.files">
-          <img [src]="item" alt="content image">
+        <div class="forum-article" *ngFor="let item of article.attachments">
+         
+          <img style="width: 320px; height: auto;" [src]="item.physPath" [alt]="item.alt">
         </div>
       </div>
     </div>

@@ -1,0 +1,25 @@
+<div class="file-drop-area" 
+  [ngClass]='!isValid ? "" : "error"'
+  *ngIf="!multiUpload else multi">
+  <span class="fake-btn">{{systemContent.title}} </span>
+  <span class="file-msg">{{file ? file.name : systemContent.default }}</span>  
+  <input class="file-input" type="file">
+</div>
+<ng-template #multi>
+  <div class="file-drop-area-multi">
+
+    <span class="fake-btn"><i class="fas fa-images"></i>{{systemContent.title}}</span>
+    <div class="file-msg">
+    
+      <ul class="article-attachments" *ngIf="attachments !== null else default">
+        <li *ngFor="let f of attachments"> {{f.name}} </li>
+      </ul>  
+      <ng-template  #default>
+        <span>{{file ? file.name : systemContent.default }}</span>
+      </ng-template>
+    </div>  
+
+    <input class="file-input" type="file" [accept]="this.systemContent?.type === 'doc' ? ['.doc', '.docx'] : ['.jpg', '.png']" multiple>
+  </div>
+  
+</ng-template>

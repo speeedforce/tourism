@@ -1,6 +1,7 @@
+import { Observable } from 'rxjs';
 import { AuthenticationService } from './../../../../api-authorization/authorize.service';
 import { UserService } from './../../../services/user.service';
-import { Observable } from 'rxjs';
+
 import { ArticleService } from './../../services/article.service';
 import { Component, Input, OnInit } from '@angular/core';
 import { IArticle } from 'src/app/types/core';
@@ -16,7 +17,7 @@ import { SYSTEM_CONTENT } from 'src/content.const';
 })
 export class ArticleDetailsComponent implements OnInit {
 
-  article$;
+  article$: Observable<IArticle>;
   @Input() isAdmin: boolean;
 
   SYSTEM_CONTENT = SYSTEM_CONTENT;
@@ -32,7 +33,7 @@ export class ArticleDetailsComponent implements OnInit {
 
    
 
-    this.article$.subscribe(q => console.log(q));
+    // this.article$.subscribe(q => console.log(q));
   }
 
 }

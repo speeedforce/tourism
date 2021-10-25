@@ -1,3 +1,4 @@
+
 import { IArticleService } from './../../types/action';
 import { Api } from '../../services/api';
 import { Observable } from 'rxjs';
@@ -20,8 +21,7 @@ export class ArticleService extends Api implements IArticleService {
     return this.http.get<IArticle>(`${this.APIURL}/article/${id}`);
   }
 
-  create(articleInput: IArticleInput): Observable<IArticle> {
-    console.log(articleInput);
+  create(articleInput: any): Observable<IArticle> {
     return this.http.post<IArticle>(`${this.APIURL}/article`, articleInput);
   }
 
@@ -35,4 +35,5 @@ export class ArticleService extends Api implements IArticleService {
       return response === id;
     }));
   }
+  
 }

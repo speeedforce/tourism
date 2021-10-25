@@ -46,7 +46,8 @@ export interface IArticle {
     id: number;
     title: string;
     text: string;
-    content: IAppFile[];
+    attachments: IAppFile[];
+    docs: IAppFile[];
     created: string;
     imageUrl: string;
     author: string;
@@ -60,7 +61,7 @@ export interface IArticleInput {
     title: string;
     text: string;
     created: string;
-    imageUrl: string;
+    imageUrl: any;
     content: any[];
 }
 

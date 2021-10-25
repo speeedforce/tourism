@@ -40,9 +40,11 @@ export class ERRORS_TEXT {
      static CONTENT = "Текст статті"
 
      static ATTACHMENT = "Підкрипити документи"
+     static LOGO = "Вибрати лого"
      static IMAGE_CONTENT = "Завантажити зображення"
      static PREVIEW = "Переглянути"
 
+     static DEFAULT = "або пертягніть файл у виділену область"
 
      static ATTACHMENTS = "Додатки"
      static DOCS = "Документи"

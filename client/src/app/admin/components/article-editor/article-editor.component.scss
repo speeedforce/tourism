@@ -1,3 +1,5 @@
+@import "../../../shared/colors.scss";
+
 .article-editor-content {
     display: flex;
     justify-content: center;
@@ -18,11 +20,18 @@
 
     button {
         margin-right: 12px;
-        width: 240px;
+        width: 50px;
     }
 
     .attachment-panel {
         display: flex;
-        justify-content: space-between;
+        justify-content: flex-end;
+    }
+
+    .logo {
+        display: flex;
+        justify-content: center;
+        height: 320px;
     }
 }
+

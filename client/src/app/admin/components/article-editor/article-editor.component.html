@@ -1,43 +1,71 @@
 <div class="article-editor-content">
   <form [formGroup]="editorForm" (ngSubmit)="onSubmit()">
     <div class="form-group">
+      <app-file-upload 
+       [systemContent]="{
+         title: SYSTEM_CONTENT.CONTENT.ARTICLE.LOGO,
+         default: SYSTEM_CONTENT.CONTENT.ARTICLE.DEFAULT
+        }" 
+       [multiUpload]='false' 
+       [isValid]="f.logo.dirty && f.logo.errors"
+       formControlName="logo">
+      </app-file-upload>
+      <div class="invalid-feedback" style="display: block;">
+        <ng-container *ngIf="hasError('logo', 'requiredFileType')">Невідповідний формат даних</ng-container>  
+      </div>
+    </div>
+    <div class="form-group">
       <label for="title">{{SYSTEM_CONTENT.CONTENT.ARTICLE.TITLE}}</label>
-      <input type="text" formControlName="title" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.title.errors }" />
-      <div *ngIf="submitted && f.title.errors" class="invalid-feedback">
-          <div *ngIf="f.title.errors.required">{{SYSTEM_CONTENT.ERRORS.ARTICLE.TITLE_REQUIRED}}</div>
-          <div *ngIf="f.title.errors.minlength">{{SYSTEM_CONTENT.ERRORS.ARTICLE.TITLE_MIN_MAX}}</div>
-          <div *ngIf="f.title.errors.maxlength">{{SYSTEM_CONTENT.ERRORS.ARTICLE.TITLE_MIN_MAX}}</div>
+      <input type="text" formControlName="title" class="form-control"
+        [ngClass]="{ 'is-invalid': f.title.dirty && f.title.errors }" />     
+      <div class="invalid-feedback" style="display: block;">
+        <ng-container *ngIf="hasError('title', 'required')">{{SYSTEM_CONTENT.ERRORS.ARTICLE.TITLE_REQUIRED}}</ng-container>  
+        <ng-container *ngIf="hasError('title', 'minlength')">{{SYSTEM_CONTENT.ERRORS.ARTICLE.TITLE_MIN_MAX}}</ng-container>  
+        <ng-container *ngIf="hasError('title', 'maxlength')">{{SYSTEM_CONTENT.ERRORS.ARTICLE.TITLE_MIN_MAX}}</ng-container>  
       </div>
-     </div>
-     <div class="form-group">
-      <label for="image">{{SYSTEM_CONTENT.CONTENT.ARTICLE.IMAGE_CONTENT}}</label>
-      <input type="image" formControlName="image" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.title.errors }" />
-     
-     </div>
-     <div class="form-group">
-      <label for="content">{{SYSTEM_CONTENT.CONTENT.ARTICLE.CONTENT}}</label>
-      <textarea type="text"  formControlName="content" class="form-control" 
-          [ngClass]="{ 'is-invalid': submitted && f.content.errors }"
-          
-          ></textarea>
-      <div *ngIf="submitted && f.content.errors" class="invalid-feedback">
-          <div *ngIf="f.content.errors.required">{{SYSTEM_CONTENT.ERRORS.ARTICLE.CONTENT_REQUIRED}}</div>
-          <div *ngIf="f.content.errors.minlength">{{SYSTEM_CONTENT.ERRORS.ARTICLE.CONTENT_MIN_MAX}}</div>
-          <div *ngIf="f.content.errors.maxlength">{{SYSTEM_CONTENT.ERRORS.ARTICLE.CONTENT_MIN_MAX}}</div>
+    </div>
+  
+    <div class="form-group">
+      <label for="title">{{SYSTEM_CONTENT.CONTENT.ARTICLE.CONTENT}}</label>
+      <textarea type="text" formControlName="text" class="form-control"
+        [ngClass]="{ 'is-invalid': f.text.dirty && f.text.errors }"></textarea>
+    
+      <div class="invalid-feedback" style="display: block;">
+        <ng-container *ngIf="hasError('text', 'required')">{{SYSTEM_CONTENT.ERRORS.ARTICLE.CONTENT_REQUIRED}}</ng-container>
+        <ng-container *ngIf="hasError('text', 'minlength')">{{SYSTEM_CONTENT.ERRORS.ARTICLE.CONTENT_MIN_MAX}}</ng-container>
+        <ng-container *ngIf="hasError('text', 'maxlength')">{{SYSTEM_CONTENT.ERRORS.ARTICLE.CONTENT_MIN_MAX}}</ng-container>
       </div>
-     </div>
-
-     <div class="form-group">
-       <div class=" attachment-panel">
-        <button class="btn btn-primary">{{SYSTEM_CONTENT.CONTENT.ARTICLE.IMAGE_CONTENT}}</button>
-        <button class="btn btn-secondary">{{SYSTEM_CONTENT.CONTENT.ARTICLE.ATTACHMENT}}</button>  
+    </div>
+    <div class="form-group">
+      <app-file-upload 
+      [systemContent]="{
+        title: SYSTEM_CONTENT.CONTENT.ARTICLE.IMAGE_CONTENT,
+        default: SYSTEM_CONTENT.CONTENT.ARTICLE.DEFAULT,
+        type: 'media'
+      }"
+      [multiUpload]='true' 
+      formControlName="attachments"></app-file-upload>
+      <div class="invalid-feedback" style="display: block;">
+        <ng-container *ngIf="hasError('attachments', 'requiredFileType')">Невідповідний формат даних.</ng-container>  
       </div>
-     </div>
-
-     <button [disabled]="loading" class="btn btn-success w-100">
+    </div>
+    <div class="form-group">
+      <app-file-upload 
+      [systemContent]="{
+        title: SYSTEM_CONTENT.CONTENT.ARTICLE.ATTACHMENT,
+        default: SYSTEM_CONTENT.CONTENT.ARTICLE.DEFAULT,
+        type: 'doc'
+      }"
+      [multiUpload]='true' 
+      formControlName="docs"></app-file-upload>
+      <div class="invalid-feedback" style="display: block;">
+        <ng-container *ngIf="hasError('docs', 'requiredFileType')">Невідповідний формат даних</ng-container>  
+      </div>
+    </div>
+    <button [disabled]="loading" class="btn btn-success w-100">
       <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
       {{SYSTEM_CONTENT.CONTENT.ARTICLE.CREATED}}
-  </button>
-  <div *ngIf="error"  style="white-space: pre-line" class="alert alert-danger mt-3 mb-0">{{error}}</div>
+    </button>
+    <div *ngIf="error" style="white-space: pre-line" class="alert alert-danger mt-3 mb-0">{{error}}</div>
   </form>
 </div>
